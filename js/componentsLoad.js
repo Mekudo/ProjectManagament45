@@ -1,10 +1,10 @@
 // Загрузка всех компонентов в main
 
 const components = {
-    sidebar: 'components/sidebar.html',
-    header: 'components/header.html',
-    signIn: 'components/modals/signIn.html',
-    signUp: 'components/modals/signUp.html',
+    sidebar: '/ProjectManagament45/components/sidebar.html',
+    header: '/ProjectManagament45/components/header.html',
+    signIn: '/ProjectManagament45/components/modals/signIn.html',
+    signUp: '/ProjectManagament45/components/modals/signUp.html',
 };
 
 // Функция загрузки компонента
