@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+
+    <link rel="stylesheet" href="/css/components/modals/signUp.css">
+
+    <script src="/js/auth/signUp.js" defer></script>
+</head>
+<body>
+    <div class="modal-overlay" id="sign-up-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Регистрация</h2>
+                <button class="close-modal" data-close="signup" onclick="closeModal('sign-up-wrapper')">&times;</button>
+            </div>
+            
+            <form id="signup-form">
+                <div class="form-group">
+                    <p>Имя</p>
+                    <input type="text" id="nameInput" placeholder="Иван" required>
+                </div>
+
+                <div class="form-group">
+                    <p>Логин</p>
+                    <input type="text" id="loginInputUp" placeholder="Ваш логин" required>
+                </div>
+                
+                <div class="form-group">
+                    <p>Пароль</p>
+                    <input type="password" id="passwordInputUp" placeholder="Ваш пароль" required>
+                </div>
+
+                <div class="form-group">
+                    <p>Подтвердите пароль</p>
+                    <input type="password" id="confirmPasswordInput" placeholder="Подтвердите ваш пароль" required>
+                </div>
+
+                
+                <div class="forgot-password">
+                    <a href="#" class="forgot-password-link">Забыли пароль?</a>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <p class="fas fa-sign-up-alt">Зарегистрироваться</p> 
+                </button>
+                
+                <div class="signup-link">
+                    <span>Уже есть аккаунт? </span>
+                    <a href="#" class="signup-link-text" id="open-signin">Авторизироваться</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

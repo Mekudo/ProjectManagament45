@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignIn</title>
+
+    <link rel="stylesheet" href="/css/components/modals/signIn.css">
+
+    <script src="/js/auth/signIn.js" defer></script>
+</head>
+<body>
+    <div class="modal-overlay" id="sign-in-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Вход в систему</h2>
+                <button class="close-modal" data-close="signin" onclick="closeModal('sign-in-wrapper')">&times;</button>
+            </div>
+            
+            <form id="signin-form">
+                <div class="form-group">
+                    <p>Логин</p>
+                    <input type="text" id="loginInput" placeholder="Ваш логин" required>
+                </div>
+                
+                <div class="form-group">
+                    <p>Пароль</p>
+                    <input type="password" id="passwordInput" placeholder="Ваш пароль" required>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="#" class="forgot-password-link">Забыли пароль?</a>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+                
+                <div class="signin-link">
+                    <span>Все еще нет аккаунта? </span>
+                    <a href="#" class="signup-link-text" id="open-signup">Зарегистрируйтесь</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
