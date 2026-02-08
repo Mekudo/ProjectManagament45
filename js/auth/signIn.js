@@ -28,7 +28,7 @@ function initSignInForm() {
         submitBtn.disabled = true;
         
         try {
-            const response = await fetch('https://dmitrii-golubev.ru:5000/api/auth/login', {
+            const response = await fetch('https://dmitrii-golubev.ru:7042/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
