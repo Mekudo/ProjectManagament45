@@ -3,8 +3,8 @@
 const components = {
     sidebar: './components/sidebar.html',
     header: './components/header.html',
-    signIn: '../components/modals/signIn.html',
-    signUp: '../components/modals/signUp.html',
+    signIn: '/components/modals/signIn.html',
+    signUp: '/components/modals/signUp.html',
 };
 
 
@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById('signin')) {
-        loadPromises.push(loadComponent('signin', '../components/modals/signIn.html'));
+        loadPromises.push(loadComponent('signin', '/components/modals/signIn.html'));
     }
 
     if (document.getElementById('signup')) {
-        loadPromises.push(loadComponent('signup', '../components/modals/signUp.html'));
+        loadPromises.push(loadComponent('signup', '/components/modals/signUp.html'));
     }
     
     Promise.all(loadPromises).then(() => {
