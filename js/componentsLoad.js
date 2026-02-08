@@ -3,8 +3,8 @@
 const components = {
     sidebar: './components/sidebar.html',
     header: './components/header.html',
-    signIn: './css/components/modals/signIn.html',
-    signUp: './css/components/modals/signUp.html',
+    signIn: './components/modals/signIn.html',
+    signUp: './components/modals/signUp.html',
 };
 
 // Функция загрузки компонента
