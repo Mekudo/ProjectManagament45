@@ -58,7 +58,7 @@ function initSignUpForm() {
         submitBtn.disabled = true;
         
         try {
-            const response = await fetch('https://dmitrii-golubev.ru:5000/api/auth/register', {
+            const response = await fetch('https://dmitrii-golubev.ru:7042/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
