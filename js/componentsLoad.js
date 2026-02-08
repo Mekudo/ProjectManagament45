@@ -3,9 +3,11 @@
 const components = {
     sidebar: './components/sidebar.html',
     header: './components/header.html',
-    signIn: './components/modals/signIn.html',
-    signUp: './components/modals/signUp.html',
+    signIn: '../components/modals/signIn.html',
+    signUp: '../components/modals/signUp.html',
 };
+
+
 
 // Функция загрузки компонента
 async function loadComponent(componentId, componentPath) {
