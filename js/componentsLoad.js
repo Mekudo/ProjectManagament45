@@ -28,19 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadPromises = [];
     
     if (document.getElementById('sidebar')) {
-        loadPromises.push(loadComponent('sidebar', 'components/sidebar.html'));
+        loadPromises.push(loadComponent('sidebar', './components/sidebar.html'));
     }
     
     if (document.getElementById('header')) {
-        loadPromises.push(loadComponent('header', 'components/header.html'));
+        loadPromises.push(loadComponent('header', './components/header.html'));
     }
 
     if (document.getElementById('signin')) {
-        loadPromises.push(loadComponent('signin', 'components/modals/signIn.html'));
+        loadPromises.push(loadComponent('signin', './components/modals/signIn.html'));
     }
 
     if (document.getElementById('signup')) {
-        loadPromises.push(loadComponent('signup', 'components/modals/signUp.html'));
+        loadPromises.push(loadComponent('signup', './components/modals/signUp.html'));
     }
     
     Promise.all(loadPromises).then(() => {
