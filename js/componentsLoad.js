@@ -105,19 +105,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById('createProject')) {
-    loadPromises.push(loadComponent('createProject', 'components/modals/createProject.html'));
+        loadPromises.push(loadComponent('createProject', 'components/modals/createProject.html'));
     }
 
     if (document.getElementById('deleteProject')) {
-    loadPromises.push(loadComponent('deleteProject', 'components/modals/deleteProject.html'));
+        loadPromises.push(loadComponent('deleteProject', 'components/modals/deleteProject.html'));
     }
 
     if (document.getElementById('editProject')) {
-    loadPromises.push(loadComponent('editProject', 'components/modals/editProject.html'));
+        loadPromises.push(loadComponent('editProject', 'components/modals/editProject.html'));
     }
 
-    if (document.getElementById('editProject')) {
-    loadPromises.push(loadComponent('editProject', 'components/modals/editUser.html'));
+    if (document.getElementById('editUser')) {
+        loadPromises.push(loadComponent('editProject', 'components/modals/editUser.html'));
     }
 
     if (document.getElementById('signin')) {
