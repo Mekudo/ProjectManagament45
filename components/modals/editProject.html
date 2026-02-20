@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование проекта</title>
+    <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/editProject.css">
+</head>
+<body>
+    <div class="modal-overlay" id="edit-project-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Редактирование проекта</h2>
+                <button class="close-modal" onclick="closeModal('edit-project-wrapper')">&times;</button>
+            </div>
+            
+            <form id="edit-project-form">
+                <!-- ID проекта (скрытое поле) -->
+                <input type="hidden" id="edit-project-id" name="projectId">
+                
+                <!-- Название проекта (отдельно, как в карточке) -->
+                <div class="edit-title-section">
+                    <i class="fas fa-project-diagram"></i>
+                    <input type="text" id="edit-project-name" class="edit-title-input" value="Лабораторная информационная система" required>
+                </div>
+
+                <!-- Информация о проекте в стиле project-info -->
+                <div class="edit-info-grid">
+                    <!-- Заказчик -->
+                    <div class="edit-info-item">
+                        <i class="fas fa-building"></i>
+                        <span class="edit-info-label">Заказчик:</span>
+                        <input type="text" id="edit-customer" class="edit-info-input" value="НЛМК">
+                    </div>
+                    
+                    <!-- Руководитель -->
+                    <div class="edit-info-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span class="edit-info-label">Руководитель:</span>
+                        <input type="text" id="edit-manager" class="edit-info-input" value="Иванов А.С.">
+                    </div>
+                    
+                    <!-- Бюджет -->
+                    <div class="edit-info-item">
+                        <i class="fas fa-wallet"></i>
+                        <span class="edit-info-label">Бюджет:</span>
+                        <input type="text" id="edit-budget" class="edit-info-input" value="5 200 000 ₽">
+                    </div>
+                    
+                    <!-- Дата начала -->
+                    <div class="edit-info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="edit-info-label">Начало:</span>
+                        <input type="date" id="edit-start-date" class="edit-info-input" value="2024-08-15">
+                    </div>
+                    
+                    <!-- Дата завершения -->
+                    <div class="edit-info-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="edit-info-label">Завершение:</span>
+                        <input type="date" id="edit-end-date" class="edit-info-input" value="2024-12-12">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-project-wrapper')">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+/* Модальное окно удаления проекта */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#delete-project-wrapper .modal-content {
+    background-color: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    animation: modalFadeIn 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#delete-project-wrapper .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid #eaeef2;
+}
+
+#delete-project-wrapper .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a2634;
+}
+
+#delete-project-wrapper .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #7f8c9a;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+#delete-project-wrapper .close-modal:hover {
+    background-color: #f1f5f9;
+    color: #1e2a38;
+}
+
+#delete-project-wrapper .modal-body {
+    padding: 32px 24px 28px;
+    text-align: center;
+}
+
+#delete-project-wrapper .delete-icon {
+    font-size: 70px;
+    line-height: 1;
+    margin-bottom: 24px;
+    display: block;
+}
+
+#delete-project-wrapper .delete-question {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1e2a38;
+    line-height: 1.4;
+}
+
+#delete-project-wrapper .delete-warning {
+    color: #7f8c9a;
+    font-size: 15px;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+#delete-project-wrapper .modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px 24px 28px;
+    border-top: none;
+}
+
+#delete-project-wrapper .btn {
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 130px;
+}
+
+#delete-project-wrapper .btn-secondary {
+    background-color: #f1f5f9;
+    color: #33475b;
+    border: 1px solid #dde3ea;
+}
+
+#delete-project-wrapper .btn-secondary:hover {
+    background-color: #e4eaf2;
+    border-color: #cbd5e1;
+}
+
+#delete-project-wrapper .btn-danger {
+    background-color: #dc2626;
+    color: white;
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+#delete-project-wrapper .btn-danger:hover {
+    background-color: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 480px) {
+    #delete-project-wrapper .modal-content {
+        width: 95%;
+    }
+    
+    #delete-project-wrapper .modal-footer {
+        flex-direction: column-reverse;
+        gap: 12px;
+        padding: 16px 20px 24px;
+    }
+    
+    #delete-project-wrapper .btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    #delete-project-wrapper .delete-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+    
+    #delete-project-wrapper .delete-question {
+        font-size: 18px;
+    }
+}

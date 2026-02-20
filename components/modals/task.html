@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/task.css">
+
+    <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+</head>
+<body>
+    <div class="modal-overlay" id="task-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Создание задачи</h2>
+                <button class="close-modal" data-close="task" onclick="closeModal('task-wrapper')">&times;</button>
+            </div>
+            
+            <form id="task">
+                <div class="form-group">
+                    <p>Наименование задачи</p>
+                    <input type="text" id="nameInput" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <p>Описание задачи</p>
+                    <input type="text" id="loginInputUp" placeholder="" required>
+                </div>
+                
+                <div class="form-group">
+                    <div class="filter-group">
+                        <p>Проект</p>
+                        <select id="projectFilter">
+                            <option value="">Все проекты</option>
+                            <option value="1">НЛМК: ЛИМС ЦПТ</option>
+                            <option value="2">Модернизация CRM</option>
+                            <option value="3">Внедрение ERP системы</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="filter-group">
+                        <p>Исполнитель</p>
+                        <select id="projectFilter">
+                            <option value="">Все исполнители</option>
+                            <option value="1">Аверин Е.В.</option>
+                            <option value="2">Веселов М.М.</option>
+                            <option value="3">Воробчиков Д.С.</option>
+                            <option value="4">Голубев Д.А.</option>
+                            <option value="5">Жохов М.С.</option>
+                            <option value="6">Кленько Д.Р</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="filter-group">
+                        <p>Приоритет</p>
+                        <select id="projectFilter">
+                            <option value="">Все приоритеты</option>
+                            <option value="1">Высокий</option>
+                            <option value="2">Средний</option>
+                            <option value="3">Низкий</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p>Крайний срок</p>
+                    <input type="date" id="taskStartDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <div class="filter-group">
+                        <p>Статус работы</p>
+                        <select id="projectFilter">
+                            <option value="">Все статусы</option>
+                            <option value="1">На проверке</option>
+                            <option value="2">В работе</option>
+                            <option value="3">Завершено</option>
+                            <option value="4">Отменено</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <p class="fas fa-plus">Добавить задачу</p> 
+                </button>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

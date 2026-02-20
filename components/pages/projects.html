@@ -1,0 +1,211 @@
+<div class="projects-page">
+    <div class="projects-header">
+        <h2>Управление проектами</h2>
+        <div class="projects-actions">
+            <button class="btn btn-primary" id="addProjectBtn" onclick="openModal('create-project-wrapper')">
+                <i class="fas fa-plus"></i> Новый проект
+            </button>
+        </div>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+        <!-- Пример проекта 1 -->
+        <div class="project-card" data-project-id="1">
+            <div class="project-card-header">
+                <div class="project-title-section">
+                    <h3>Лабораторная информационная система</h3>
+                    <div class="project-actions">
+                        <button class="btn-icon btn-edit" title="Редактировать" onclick="openModal('edit-project-wrapper')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon btn-delete" title="Удалить" onclick="openModal('delete-project-wrapper')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="project-status-section">
+                    <select class="status-select" data-project-id="1">
+                        <option value="planning">Планирование</option>
+                        <option value="active" selected>В работе</option>
+                        <option value="onhold">На паузе</option>
+                        <option value="completed">Завершен</option>
+                        <option value="cancelled">Отменен</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="project-info">
+                <div class="project-info-item">
+                    <i class="fas fa-building"></i>
+                    <span class="project-info-label">Заказчик:</span>
+                    <span class="project-info-value" data-field="customer">НЛМК</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="project-info-label">Руководитель:</span>
+                    <span class="project-info-value" data-field="manager">Иванов А.С.</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="project-info-label">Бюджет:</span>
+                    <span class="project-info-value" data-field="budget">5 200 000 ₽</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="project-info-label">Начало:</span>
+                    <span class="project-info-value" data-field="startDate">15.08.2024</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="project-info-label">Завершение:</span>
+                    <span class="project-info-value" data-field="endDate">12.12.2024</span>
+                </div>
+            </div>
+            
+            <div class="project-notes">
+                <div class="project-notes-label">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Примечания:</span>
+                </div>
+                <div class="project-notes-content" data-field="notes">
+                    Разработка и внедрение лабораторной информационной системы для контроля качества продукции
+                </div>
+            </div>
+        </div>
+        
+        <!-- Пример проекта 2 -->
+        <div class="project-card" data-project-id="2">
+            <div class="project-card-header">
+                <div class="project-title-section">
+                    <h3>Модернизация CRM системы</h3>
+                    <div class="project-actions">
+                        <button class="btn-icon btn-edit" title="Редактировать">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon btn-delete" title="Удалить">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="project-status-section">
+                    <select class="status-select" data-project-id="2">
+                        <option value="planning" selected>Планирование</option>
+                        <option value="active">В работе</option>
+                        <option value="onhold">На паузе</option>
+                        <option value="completed">Завершен</option>
+                        <option value="cancelled">Отменен</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="project-info">
+                <div class="project-info-item">
+                    <i class="fas fa-building"></i>
+                    <span class="project-info-label">Заказчик:</span>
+                    <span class="project-info-value" data-field="customer">Рога и Копыта</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="project-info-label">Руководитель:</span>
+                    <span class="project-info-value" data-field="manager">Петрова М.В.</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="project-info-label">Бюджет:</span>
+                    <span class="project-info-value" data-field="budget">2 800 000 ₽</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="project-info-label">Начало:</span>
+                    <span class="project-info-value" data-field="startDate">01.10.2024</span>
+                </div>
+                <div class="project-info-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="project-info-label">Завершение:</span>
+                    <span class="project-info-value" data-field="endDate">25.11.2024</span>
+                </div>
+            </div>
+            
+            <div class="project-notes">
+                <div class="project-notes-label">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Примечания:</span>
+                </div>
+                <div class="project-notes-content" data-field="notes">
+                    Обновление системы управления взаимоотношениями с клиентами
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно редактирования проекта -->
+<div id="editProjectModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Редактирование проекта</h3>
+            <button class="btn-icon modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="projectForm">
+                <input type="hidden" id="projectId" name="projectId">
+                
+                <div class="form-group">
+                    <label for="projectName">Название проекта</label>
+                    <input type="text" id="projectName" name="projectName" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer">Заказчик</label>
+                        <input type="text" id="customer" name="customer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="manager">Руководитель</label>
+                        <input type="text" id="manager" name="manager" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="budget">Бюджет (₽)</label>
+                        <input type="number" id="budget" name="budget" min="0" step="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Статус</label>
+                        <select id="status" name="status">
+                            <option value="planning">Планирование</option>
+                            <option value="active">В работе</option>
+                            <option value="onhold">На паузе</option>
+                            <option value="completed">Завершен</option>
+                            <option value="cancelled">Отменен</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Дата начала</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Дата завершения</label>
+                        <input type="date" id="endDate" name="endDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Примечания</label>
+                    <textarea id="notes" name="notes" rows="3"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary modal-cancel">Отмена</button>
+            <button class="btn btn-danger" id="deleteProjectBtn">Удалить проект</button>
+            <button class="btn btn-primary" id="saveProjectBtn">Сохранить изменения</button>
+        </div>
+    </div>
+</div>

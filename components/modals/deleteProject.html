@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удаление проекта</title>
+    <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/deleteProject.css">
+</head>
+<body>
+    <div class="modal-overlay" id="delete-project-wrapper">
+        <div class="modal-content delete-modal">
+            <div class="modal-header">
+                <h2>Удаление проекта</h2>
+                <button class="close-modal" onclick="closeModal('delete-project-wrapper')">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="delete-icon">🗑️</div>
+                <p class="delete-question">Вы действительно хотите удалить проект?</p>
+                <p class="delete-warning">Это действие нельзя отменить.</p>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirm-delete-btn" onclick="deleteProject()">Да, удалить</button>
+                <button class="btn btn-secondary" onclick="closeModal('delete-project-wrapper')">Нет, отмена</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

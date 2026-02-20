@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование пользователя</title>
+    <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/editUser.css">
+</head>
+<body>
+    <div class="modal-overlay" id="edit-user-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👤 Редактирование пользователя</h2>
+                <button class="close-modal" onclick="closeModal('edit-user-wrapper')">&times;</button>
+            </div>
+            
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id" name="userId">
+                
+                <div class="edit-title-section">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="edit-user-name" class="edit-title-input" placeholder="Имя пользователя" required>
+                </div>
+
+                <div class="edit-info-grid">
+                    <div class="edit-info-item">
+                        <i class="fas fa-key"></i>
+                        <span class="edit-info-label">Логин:</span>
+                        <input type="text" id="edit-user-login" class="edit-info-input" placeholder="Логин" required>
+                    </div>
+                    
+                    <div class="edit-info-item">
+                        <i class="fas fa-user-tag"></i>
+                        <span class="edit-info-label">Роль:</span>
+                        <select id="edit-user-role" class="edit-info-select" required>
+                            <option value="0">Администратор</option>
+                            <option value="1">Руководитель проекта</option>
+                            <option value="2">Исполнитель</option>
+                        </select>
+                    </div>
+                    
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Смена пароля</label>
+                    <div class="edit-info-grid" style="gap: 12px;">
+                        <div class="edit-info-item">
+                            <i class="fas fa-lock"></i>
+                            <span class="edit-info-label">Новый пароль:</span>
+                            <input type="password" id="edit-user-password" class="edit-info-input" placeholder="Оставьте пустым, если не хотите менять">
+                        </div>
+                        
+                        <div class="edit-info-item">
+                            <i class="fas fa-lock"></i>
+                            <span class="edit-info-label">Подтверждение:</span>
+                            <input type="password" id="edit-user-password-confirm" class="edit-info-input" placeholder="Подтвердите новый пароль">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Футер с кнопками по центру -->
+                <div class="modal-footer">
+                    <button type="button" onclick="saveUserChanges(event)" class="btn btn-primary">Сохранить изменения</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-user-wrapper')">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

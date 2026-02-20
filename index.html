@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система управления проектами</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/components/pages/adminPages.css">
+    <link rel="stylesheet" href="./css/components/pages/projects.css">
+    <link rel="stylesheet" href="./css/components/pages/tasks.css">
+    <link rel="stylesheet" href="./css/components/modals/editUser.css">
+    <script src="./js/componentsLoad.js" defer></script>
+    <script src="./js/modals/authModals.js" defer></script>
+    <script src="./js/auth/authFlow.js" defer></script>
+    <script src="./js/auth/authUI.js"></script>
+    <script src="./js/auth/signIn.js"></script>
+    <script src="./js/auth/signUp.js"></script>
+    <script src="./js/pages/adminLoad.js"></script>
+
+</head>
+    <body>
+        <div id="signin"></div>
+        
+        <div class="container">
+            <div id="sidebar"></div>
+            <div id="signup"></div>
+            <div id="task"></div>
+            <div id="createProject"></div>
+            <div id="deleteProject"></div>
+            <div id="editProject"></div> 
+            <div id="editUser"></div>
+            <!-- Основной контент -->
+            <div class="main-content">
+                <div id="header"></div>
+                <!-- Страница Главная -->
+                <div id="dashboard" class="page active">
+
+                    <!-- Статистика проектов -->
+                    <div class="project-stats">
+                        <div class="stat-card">
+                            <h3>Всего проектов</h3>
+                            <div class="value">12</div>
+                        </div>
+                        <div class="stat-card in-progress">
+                            <h3>В работе</h3>
+                            <div class="value">5</div>
+                        </div>
+                        <div class="stat-card completed">
+                            <h3>Завершено</h3>
+                            <div class="value">7</div>
+                        </div>
+                        <div class="stat-card overdue">
+                            <h3>Просрочено</h3>
+                            <div class="value">3</div>
+                        </div>
+                    </div>
+
+                    <!-- Доска задач -->
+                    <div class="board-container">
+                        <div class="board-header">
+                            <h2>Задачи проекта: НЛМК: ЛИМС ЦПТ</h2>
+                            <div class="board-actions">
+                                <button class="btn btn-primary" id="addTask">
+                                    <i class="fas fa-plus"></i> Добавить задачу
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="task-board">
+                            <!-- Колонка "В работе" -->
+                            <div class="task-column">
+                                <div class="column-header">
+                                    <h3>В работе</h3>
+                                    <div class="task-count">3</div>
+                                </div>
+                                <div class="task-list" id="in-progress">
+                                    <!-- Задачи будут добавляться динамически -->
+                                </div>
+                            </div>
+
+                            <!-- Колонка "На проверке" -->
+                            <div class="task-column">
+                                <div class="column-header">
+                                    <h3>На проверке</h3>
+                                    <div class="task-count">2</div>
+                                </div>
+                                <div class="task-list" id="in-review">
+                                    <!-- Задачи будут добавляться динамически -->
+                                </div>
+                            </div>
+
+                            <!-- Колонка "Завершено" -->
+                            <div class="task-column">
+                                <div class="column-header">
+                                    <h3>Завершено</h3>
+                                    <div class="task-count">7</div>
+                                </div>
+                                <div class="task-list" id="completed">
+                                    <!-- Задачи будут добавляться динамически -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tasks" class="page"></div>
+                <div id="projects" class="page"></div>
+                <div id="admin" class="page"></div>
+        </div>
+    </body>
+</html>

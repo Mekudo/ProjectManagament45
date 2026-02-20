@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/sidebar.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-tasks"></i> <span>Управление проектами</span></h2>
+        </div>
+        
+        <!-- Основное меню -->
+        <ul class="nav-menu">
+            <li class="active" data-page="dashboard"><i class="fas fa-home"></i> <span>Главная</span></li>
+            <li data-page="projects"><i class="fas fa-project-diagram"></i> <span>Проекты</span></li>
+            <li data-page="tasks"><i class="fas fa-tasks"></i> <span>Задачи</span></li>
+            <li data-page="users"><i class="fas fa-users"></i> <span>Исполнители</span></li>
+            <li data-page="reports"><i class="fas fa-chart-bar"></i> <span>Отчеты</span></li>
+            <li data-page="admin" onclick="loadUsers()"><i class="fas fa-user-shield"></i><span>Администрирование</span></li>
+        </ul>
+        
+        <!-- Нижняя часть с выходом -->
+        <div class="sidebar-bottom">
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="userName"></span>
+                    <span class="user-role" id="userRole"></span>
+                </div>
+            </div>
+            <div class="logout-btn" id="logoutBtn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Выход</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

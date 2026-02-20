@@ -1,0 +1,366 @@
+/* По умолчанию скрываем основное приложение */
+.container {
+    display: none !important;
+}
+
+/* Показываем только когда авторизованы */
+.container.auth-ok {
+    display: flex !important;
+}
+
+/* Модалки авторизации показываем всегда поверх */
+#signin.active,
+#signup.active {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: linear-gradient(145deg, #1B263B 0%, #2A3D66 50%, #415A77 100%);
+}
+
+/* Убираем конфликтующие стили */
+body.page-loaded .container {
+    display: none !important;
+}
+
+body.page-loaded .container.auth-ok {
+    display: flex !important;
+}
+
+body {
+    opacity: 0;
+    transition: opacity 0.01s ease;
+}
+
+body.page-loaded {
+    opacity: 1;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+/* Основной контент */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Статистика проектов */
+.project-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-top: 4px solid #3498db;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.stat-card.in-progress {
+    border-top-color: #f39c12;
+}
+
+.stat-card.completed {
+    border-top-color: #2ecc71;
+}
+
+.stat-card.overdue {
+    border-top-color: #e74c3c;
+}
+
+/* Доска задач */
+.board-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.board-header h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+.board-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+.btn-secondary:hover {
+    background-color: #bdc3c7;
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Карточки задач */
+.task-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.task-column {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 15px;
+    min-height: 400px;
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.column-header h3 {
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.task-count {
+    background-color: #e0e0e0;
+    color: #2c3e50;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.task-list {
+    min-height: 300px;
+}
+
+.task-card {
+    background-color: white;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    border-left: 4px solid #3498db;
+    cursor: grab;
+}
+
+.task-card:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.task-card h4 {
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.task-assignee {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.task-assignee img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.task-priority {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.priority-high {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.priority-medium {
+    background-color: #fff8e1;
+    color: #f39c12;
+}
+
+.priority-low {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+}
+
+/* Таблицы */
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.data-table th {
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+    padding: 15px;
+    font-weight: 600;
+}
+
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+}
+
+.status-inactive {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.status-pending {
+    background-color: #fff8e1;
+    color: #f39c12;
+}
+
+/* Стили для страниц */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+}

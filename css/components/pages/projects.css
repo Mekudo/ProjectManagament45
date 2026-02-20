@@ -1,0 +1,627 @@
+/* ============================================
+   ОБЩИЕ СТИЛИ ДЛЯ СТРАНИЦЫ ПРОЕКТОВ
+   ============================================ */
+
+/* Главный контейнер страницы */
+.projects-page {
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+    background-color: #f8f9fa;
+}
+
+/* Шапка страницы проектов */
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.projects-header h2 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.projects-header h2 i {
+    color: #3498db;
+}
+
+/* Сетка проектов */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+    gap: 20px;
+}
+
+/* ============================================
+   КАРТОЧКА ПРОЕКТА
+   ============================================ */
+
+.project-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #3498db;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок карточки */
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.project-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1 1 0; 
+    min-width: 0;   
+    margin-right: 15px;
+}
+
+.project-title-section h3 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin: 0 10px 5px 0;
+    line-height: 1.3;
+    flex: 1;
+}
+
+/* Кнопки действий в карточке */
+.project-actions {
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.project-card:hover .project-actions {
+    opacity: 1;
+}
+
+/* Секция статуса */
+.project-status-section {
+    flex: 0 1 auto;    
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Информация о проекте */
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.project-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    padding: 3px 0;
+}
+
+.project-info-item i {
+    width: 16px;
+    color: #7f8c8d;
+    text-align: center;
+}
+
+.project-info-label {
+    color: #7f8c8d;
+    min-width: 90px;
+    font-weight: 500;
+}
+
+.project-info-value {
+    color: #2c3e50;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Блок примечаний */
+.project-notes {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.project-notes-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.project-notes-label i {
+    font-size: 0.9rem;
+}
+
+.project-notes-content {
+    color: #555;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 3px solid #3498db;
+}
+
+/* ============================================
+   СТАТУСЫ ПРОЕКТОВ
+   ============================================ */
+
+/* Общие стили для статусов */
+.project-status,
+.status-select {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Выпадающий список статусов */
+.status-select {
+    padding: 6px 12px;
+    border: 2px solid #e0e0e0;
+    background-color: white;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Цвета статусов */
+.status-planning {
+    background-color: #e3f2fd;
+    color: #2980b9;
+}
+
+.status-active {
+    background-color: #e8f5e9;
+    color: #27ae60;
+}
+
+.status-onhold {
+    background-color: #fff3e0;
+    color: #f39c12;
+}
+
+.status-completed {
+    background-color: #f3e5f5;
+    color: #8e44ad;
+}
+
+.status-cancelled {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+.status-delayed {
+    background-color: #fff3e0;
+    color: #e67e22;
+}
+
+/* Цвета опций в выпадающем списке */
+.status-select option[value="planning"] {
+    background-color: #e3f2fd;
+    color: #2980b9;
+}
+
+.status-select option[value="active"] {
+    background-color: #e8f5e9;
+    color: #27ae60;
+}
+
+.status-select option[value="onhold"] {
+    background-color: #fff3e0;
+    color: #f39c12;
+}
+
+.status-select option[value="completed"] {
+    background-color: #f3e5f5;
+    color: #8e44ad;
+}
+
+.status-select option[value="cancelled"] {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+/* ============================================
+   КНОПКИ И КОНТРОЛЫ
+   ============================================ */
+
+/* Иконки-кнопки */
+.btn-icon {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7f8c8d;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-edit:hover {
+    color: #3498db;
+}
+
+.btn-delete:hover {
+    color: #e74c3c;
+}
+
+/* Основные кнопки */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* ============================================
+   МОДАЛЬНОЕ ОКНО
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+    border-radius: 8px 8px 0 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+/* ============================================
+   ФОРМЫ
+   ============================================ */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ============================================
+   АНИМАЦИИ
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Применение анимации */
+.projects-grid {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+
+@media (max-width: 768px) {
+    .projects-page {
+        padding: 15px;
+    }
+
+    .projects-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .project-title-section {
+        flex-direction: column;
+        gap: 10px;
+        margin-right: 0;
+    }
+
+    .project-actions {
+        opacity: 1;
+        align-self: flex-end;
+    }
+
+    .project-card-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .project-status-section {
+        width: 100%;
+    }
+
+    .status-select {
+        width: 100%;
+    }
+
+    .project-info-label {
+        min-width: 70px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .modal-content {
+        width: 100%;
+        margin: 0;
+        max-height: 95vh;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-info-item {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .project-info-label {
+        min-width: 60px;
+    }
+
+    .project-info-value {
+        width: 100%;
+        padding-left: 26px; /* Выравнивание с учетом иконки */
+    }
+}
+
+/* ============================================
+   УТИЛИТЫ
+   ============================================ */
+
+/* Скрытие элемента */
+.hidden {
+    display: none !important;
+}
+
+/* Загрузка */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Сообщения */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+}
+
+/* Тени для контейнеров */
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
