@@ -1,6 +1,6 @@
 // Загрузка всех компонентов в main
 const COMPONENTS = {
-    sidebar: 'components/sidebar.html',
+    sidebar: './components/sidebar.html',
     header: 'components/header.html',
     signIn: 'components/modals/signIn.html',
     signUp: 'components/modals/signUp.html',
