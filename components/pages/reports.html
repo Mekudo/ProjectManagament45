@@ -1,12 +1,13 @@
+<!-- reports.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/pages/reports.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="/project-management/ProjectManagement.Frontend/js/pages/reports.js" defer></script>
+    
     <title>Отчеты и аналитика</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
             <h2><i class="fas fa-chart-pie"></i> Отчеты и аналитика</h2>
             <div class="header-actions">
                 <button class="btn btn-primary" onclick="openModal('export-pdf-wrapper')">
-                    <i class="fas fa-file-pdf"></i> Экспорт PDF
+                    <i class="fas fa-file-pdf"></i> Экспорт
                 </button>
                 <button class="btn btn-secondary" onclick="openModal('select-period-wrapper')">
                     <i class="fas fa-calendar-alt"></i> Выбрать период
@@ -24,161 +25,95 @@
             </div>
         </div>
 
-        <!-- Карточки KPI (ключевые показатели) -->
+        <!-- Карточки KPI с data-атрибутами -->
         <div class="kpi-grid">
-            <div class="kpi-card">
+            <div class="kpi-card" data-kpi="total-projects">
                 <div class="kpi-icon" style="background: rgba(52, 152, 219, 0.1); color: #3498db;">
                     <i class="fas fa-project-diagram"></i>
                 </div>
                 <div class="kpi-content">
-                    <div class="kpi-value">12</div>
+                    <div class="kpi-value">0</div>
                     <div class="kpi-label">Всего проектов</div>
                 </div>
-                <div class="kpi-trend up">
-                    <i class="fas fa-arrow-up"></i> +2
+                <div class="kpi-trend up" style="display: none;">
+                    <i class="fas fa-arrow-up"></i> <span class="trend-value"></span>
                 </div>
             </div>
-            <div class="kpi-card">
+            
+            <div class="kpi-card" data-kpi="completed-projects">
                 <div class="kpi-icon" style="background: rgba(46, 204, 113, 0.1); color: #2ecc71;">
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <div class="kpi-content">
-                    <div class="kpi-value">7</div>
+                    <div class="kpi-value">0</div>
                     <div class="kpi-label">Завершено</div>
                 </div>
-                <div class="kpi-trend up">
-                    <i class="fas fa-arrow-up"></i> +3
+                <div class="kpi-trend up" style="display: none;">
+                    <i class="fas fa-arrow-up"></i> <span class="trend-value"></span>
                 </div>
             </div>
-            <div class="kpi-card">
+            
+            <div class="kpi-card" data-kpi="active-tasks">
                 <div class="kpi-icon" style="background: rgba(241, 196, 15, 0.1); color: #f1c40f;">
                     <i class="fas fa-tasks"></i>
                 </div>
                 <div class="kpi-content">
-                    <div class="kpi-value">24</div>
+                    <div class="kpi-value">0</div>
                     <div class="kpi-label">Активные задачи</div>
                 </div>
-                <div class="kpi-trend down">
-                    <i class="fas fa-arrow-down"></i> -5
+                <div class="kpi-trend down" style="display: none;">
+                    <i class="fas fa-arrow-down"></i> <span class="trend-value"></span>
                 </div>
             </div>
-            <div class="kpi-card">
+            
+            <div class="kpi-card" data-kpi="overdue-tasks">
                 <div class="kpi-icon" style="background: rgba(231, 76, 60, 0.1); color: #e74c3c;">
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="kpi-content">
-                    <div class="kpi-value">3</div>
+                    <div class="kpi-value">0</div>
                     <div class="kpi-label">Просрочено</div>
                 </div>
-                <div class="kpi-trend down">
-                    <i class="fas fa-arrow-down"></i> +1
+                <div class="kpi-trend down" style="display: none;">
+                    <i class="fas fa-arrow-down"></i> <span class="trend-value"></span>
                 </div>
             </div>
         </div>
 
-        <!-- Основные графики в два столбца -->
-        <div class="charts-grid">
-            <!-- Статус проектов (круговая диаграмма) -->
+        <!-- Статус проектов (теперь на всю ширину) -->
+        <div class="charts-grid" style="grid-template-columns: 1fr;">
+            <!-- Статус проектов -->
             <div class="chart-card">
                 <h3><i class="fas fa-chart-pie"></i> Статус проектов</h3>
-                <div class="chart-container">
+                <div class="chart-container" id="projects-status-chart">
                     <div class="pie-chart">
-                        <!-- Простая имитация круговой диаграммы через CSS конусы -->
-                        <div class="pie-segment segment-planning" style="--percentage: 25; --color: #3498db;"></div>
-                        <div class="pie-segment segment-active" style="--percentage: 42; --color: #f39c12;"></div>
-                        <div class="pie-segment segment-completed" style="--percentage: 33; --color: #2ecc71;"></div>
+                        <!-- Динамически генерируется через JS -->
                     </div>
-                    <div class="chart-legend">
-                        <div><span class="legend-color" style="background: #3498db;"></span> Планирование (3)</div>
-                        <div><span class="legend-color" style="background: #f39c12;"></span> В работе (5)</div>
-                        <div><span class="legend-color" style="background: #2ecc71;"></span> Завершено (4)</div>
+                    <div class="chart-legend" id="projects-legend">
+                        <!-- Динамически генерируется -->
                     </div>
-                </div>
-            </div>
-
-            <!-- Распределение задач по приоритетам (столбчатая диаграмма) -->
-            <div class="chart-card">
-                <h3><i class="fas fa-tasks"></i> Задачи по приоритетам</h3>
-                <div class="chart-container">
-                    <div class="bar-chart">
-                        <div class="bar-item">
-                            <div class="bar-label">Высокий</div>
-                            <div class="bar-progress">
-                                <div class="bar-fill" style="width: 40%; background: #e74c3c;">4</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Средний</div>
-                            <div class="bar-progress">
-                                <div class="bar-fill" style="width: 70%; background: #f39c12;">12</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Низкий</div>
-                            <div class="bar-progress">
-                                <div class="bar-fill" style="width: 50%; background: #2ecc71;">8</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chart-total">Всего задач: 24</div>
                 </div>
             </div>
         </div>
 
-        <!-- Динамика по месяцам (линейный график) и таблица последних задач -->
+        <!-- Динамика по месяцам и последние задачи -->
         <div class="bottom-grid">
             <div class="chart-card wide">
                 <h3><i class="fas fa-chart-line"></i> Динамика выполнения задач</h3>
-                <div class="line-chart">
-                    <div class="line-chart-bars">
-                        <div class="line-bar" style="height: 60px;"><span>Янв</span></div>
-                        <div class="line-bar" style="height: 80px;"><span>Фев</span></div>
-                        <div class="line-bar" style="height: 45px;"><span>Мар</span></div>
-                        <div class="line-bar" style="height: 70px;"><span>Апр</span></div>
-                        <div class="line-bar" style="height: 90px;"><span>Май</span></div>
-                        <div class="line-bar" style="height: 65px;"><span>Июн</span></div>
+                <div class="line-chart" id="monthly-dynamics">
+                    <div class="line-chart-bars" id="monthly-bars">
+                        <!-- Динамически генерируется -->
                     </div>
                 </div>
             </div>
+            
             <div class="recent-tasks-card">
                 <h3><i class="fas fa-list"></i> Последние задачи</h3>
-                <div class="task-list">
-                    <div class="task-item">
-                        <div class="task-priority high"></div>
-                        <div class="task-info">
-                            <span class="task-name">Разработка модуля отчетов</span>
-                            <span class="task-deadline">до 25.02</span>
-                        </div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-priority medium"></div>
-                        <div class="task-info">
-                            <span class="task-name">Тестирование интерфейса</span>
-                            <span class="task-deadline">до 27.02</span>
-                        </div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-priority low"></div>
-                        <div class="task-info">
-                            <span class="task-name">Обновление документации</span>
-                            <span class="task-deadline">до 01.03</span>
-                        </div>
-                    </div>
-                    <div class="task-item">
-                        <div class="task-priority high"></div>
-                        <div class="task-info">
-                            <span class="task-name">Исправление критической ошибки</span>
-                            <span class="task-deadline">сегодня</span>
-                        </div>
-                    </div>
+                <div class="task-list" id="recent-tasks-list">
+                    <!-- Динамически генерируется -->
                 </div>
-                <a href="#" class="view-all">Все задачи <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
-
-    <!-- Контейнеры для модалок (если нужно) -->
-    <div id="export-pdf"></div>
-    <div id="select-period"></div>
 </body>
 </html>

@@ -7,20 +7,31 @@
 
     <link rel="stylesheet" href="/projectmanagament45/css/main.css">
     <link rel="stylesheet" href="/projectmanagament45/css/reset.css">
+
+    <link rel="stylesheet" href="/projectmanagament45/css/components/sidebar.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/header.css">
+
     <link rel="stylesheet" href="/projectmanagament45/css/components/pages/adminPages.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/pages/projects.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/pages/tasks.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/pages/customers.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/sidebar.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/header.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/pages/reports.css">
 
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editUser.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editCustomer.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/customer.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/modals/deleteCustomer.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/deleteProject.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editCustomer.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editProject.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editUser.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/exportPDF.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/project.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/modals/projectMembers.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/modals/projectStatuses.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/selectPeriod.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/modals/signIn.css">
     <link rel="stylesheet" href="/projectmanagament45/css/components/modals/signUp.css">
+    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/task.css">
+
 
 
     <script src="./js/componentsLoad.js" defer></script>
@@ -33,9 +44,11 @@
     <script src="./js/pages/project.js" defer></script>
     <script src="./js/pages/main.js" defer></script>
     <script src="./js/pages/tasks.js" defer></script>
+    <script src="./js/pages/reports.js" defer></script>
     <script src="./js/pages/customers.js" defer></script>
-
-
+    <script src="./js/modals/exportPDF.js" defer></script>
+    <script src="./js/modals/selectPeriod.js" defer></script>
+    
 </head>
     <body>
         <div id="signin"></div>
@@ -55,6 +68,8 @@
             <div id="projectStatuses"></div>
             <div id="taskModalForTasks"></div>
             <div id="taskModal"></div>
+            <div id="exportPDF"></div>
+            <div id="selectPeriod"></div>
 
             
             <!-- Основной контент -->
@@ -115,7 +130,9 @@
                 <div id="projects" class="page"></div>
                 <div id="admin" class="page"></div>
                 <div id="customers" class="page"></div>
+                <div id="reports" class="page"></div>
         </div>
         <div id="toast-container" class="toast-container"></div>
+        
     </body>
 </html>
