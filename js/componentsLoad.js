@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 📌 ОСНОВНЫЕ КОМПОНЕНТЫ
     if (document.getElementById('sidebar')) {
-        loadPromises.push(loadComponent('sidebar', 'components/sidebar.html'));
+        loadPromises.push(loadComponent('sidebar', '/projectmanagament45/components/sidebar.html'));
     }
     
     if (document.getElementById('header')) {
-        loadPromises.push(loadComponent('header', 'components/header.html'));
+        loadPromises.push(loadComponent('header', '/projectmanagament45/components/header.html'));
     }
 
     // 📌 МОДАЛЬНЫЕ ОКНА (исправленные пути)
