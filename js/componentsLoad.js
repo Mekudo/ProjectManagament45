@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById('signin')) {
-        loadPromises.push(loadComponent('signin', 'components/modals/signIn.html'));
+        loadPromises.push(loadComponent('signin', '/projectmanagament45/components/modals/signIn.html'));
     }
 
     if (document.getElementById('signup')) {
