@@ -1,4 +1,5 @@
-.modal-overlay {
+/* Стили только для модалки выбора периода */
+#select-period-wrapper.modal-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -11,11 +12,11 @@
     align-items: center;
 }
 
-.modal-overlay.active {
+#select-period-wrapper.modal-overlay.active {
     display: flex;
 }
 
-.modal-content {
+#select-period-wrapper .modal-content {
     background: white;
     border-radius: 8px;
     width: 550px;
@@ -25,7 +26,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+#select-period-wrapper .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,18 +34,18 @@
     border-bottom: 1px solid #eee;
 }
 
-.modal-header h2 {
+#select-period-wrapper .modal-header h2 {
     margin: 0;
     font-size: 18px;
     color: #2c3e50;
 }
 
-.modal-header h2 i {
+#select-period-wrapper .modal-header h2 i {
     margin-right: 8px;
-    color: #f39c12; /* иконка календаря оранжевая, можно оставить */
+    color: #f39c12;
 }
 
-.close-modal {
+#select-period-wrapper .close-modal {
     background: none;
     border: none;
     font-size: 24px;
@@ -59,12 +60,12 @@
     transition: background 0.2s;
 }
 
-.close-modal:hover {
+#select-period-wrapper .close-modal:hover {
     background: #f0f0f0;
     color: #333;
 }
 
-.modal-footer {
+#select-period-wrapper .modal-footer {
     padding: 15px 20px;
     border-top: 1px solid #eee;
     display: flex;
@@ -72,32 +73,32 @@
     gap: 10px;
 }
 
-.form-group {
+#select-period-wrapper .form-group {
     margin-bottom: 20px;
     padding: 0 20px;
 }
 
-.form-group label {
+#select-period-wrapper .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: #555;
 }
 
-.form-group label i {
+#select-period-wrapper .form-group label i {
     margin-right: 5px;
     color: #3498db;
 }
 
 /* Кнопки быстрого периода */
-.quick-period-buttons {
+#select-period-wrapper .quick-period-buttons {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 10px;
 }
 
-.btn-quick-period {
+#select-period-wrapper .btn-quick-period {
     background: #f8f9fa;
     border: 1px solid #ddd;
     padding: 6px 12px;
@@ -108,29 +109,29 @@
     color: #333;
 }
 
-.btn-quick-period:hover {
+#select-period-wrapper .btn-quick-period:hover {
     background: #e9ecef;
     border-color: #3498db;
 }
 
 /* Блок произвольного периода */
-.period-custom {
+#select-period-wrapper .period-custom {
     background: #f8f9fa;
     padding: 15px;
     border-radius: 6px;
     margin: 0 20px 20px 20px;
 }
 
-.period-row {
+#select-period-wrapper .period-row {
     display: flex;
     gap: 15px;
 }
 
-.period-field {
+#select-period-wrapper .period-field {
     flex: 1;
 }
 
-.period-input {
+#select-period-wrapper .period-input {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -138,13 +139,13 @@
     font-size: 14px;
 }
 
-.period-input:focus {
+#select-period-wrapper .period-input:focus {
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-select {
+#select-period-wrapper select {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -154,14 +155,14 @@ select {
     background: white;
 }
 
-select:focus {
+#select-period-wrapper select:focus {
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Кастомные чекбоксы (голубые) */
-.checkbox-label {
+/* Кастомные чекбоксы */
+#select-period-wrapper .checkbox-label {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -170,7 +171,7 @@ select:focus {
     color: #333;
 }
 
-.checkbox-label input[type="checkbox"] {
+#select-period-wrapper .checkbox-label input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -178,13 +179,13 @@ select:focus {
     width: 0;
 }
 
-.checkbox-label span {
+#select-period-wrapper .checkbox-label span {
     position: relative;
     padding-left: 26px;
     line-height: 20px;
 }
 
-.checkbox-label span::before {
+#select-period-wrapper .checkbox-label span::before {
     content: '';
     position: absolute;
     left: 0;
@@ -197,12 +198,12 @@ select:focus {
     transition: all 0.2s;
 }
 
-.checkbox-label input[type="checkbox"]:checked + span::before {
+#select-period-wrapper .checkbox-label input[type="checkbox"]:checked + span::before {
     background-color: #3498db;
     border-color: #3498db;
 }
 
-.checkbox-label input[type="checkbox"]:checked + span::after {
+#select-period-wrapper .checkbox-label input[type="checkbox"]:checked + span::after {
     content: '\f00c';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
@@ -213,12 +214,12 @@ select:focus {
     font-size: 12px;
 }
 
-.checkbox-label:hover span::before {
+#select-period-wrapper .checkbox-label:hover span::before {
     border-color: #3498db;
 }
 
 /* Кнопки */
-.btn {
+#select-period-wrapper .btn {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
@@ -227,24 +228,32 @@ select:focus {
     transition: all 0.2s;
 }
 
-.btn-primary {
+#select-period-wrapper .btn-primary {
     background: #3498db;
     color: white;
 }
 
-.btn-primary:hover {
+#select-period-wrapper .btn-primary:hover {
     background: #2980b9;
 }
 
-.btn-primary i {
+#select-period-wrapper .btn-primary i {
     margin-right: 5px;
 }
 
-.btn-secondary {
+#select-period-wrapper .btn-secondary {
     background: #95a5a6;
     color: white;
 }
 
-.btn-secondary:hover {
+#select-period-wrapper .btn-secondary:hover {
     background: #7f8c8d;
+}
+
+/* Скрытие/показ полей */
+#select-period-wrapper #custom-period-fields,
+#select-period-wrapper #month-select-fields,
+#select-period-wrapper #quarter-select-fields,
+#select-period-wrapper #year-select-fields {
+    margin-top: 15px;
 }
