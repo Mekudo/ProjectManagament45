@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         this.updateUI();
         
-        alert('Вы вышли из системы');
         
         window.location.reload();
         

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование проекта</title>
+    <title>Редактирование заказчика</title>
     <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editCustomer.css">
+    <script src="/project-management/ProjectManagement.Frontend/js/pages/customer.js" defer></script>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/editCustomer.css">
 </head>
 <body>
     <div class="modal-overlay" id="edit-customer-wrapper">
@@ -15,60 +16,58 @@
                 <button class="close-modal" onclick="closeModal('edit-customer-wrapper')">&times;</button>
             </div>
             
-            <form id="edit-customer-form">
+            <!-- Убираем form, оставляем div -->
+            <div class="edit-info-grid">
                 <!-- ID заказчика (скрытое поле) -->
-                <input type="hidden" id="edit-customer-id" name="customerId">
+                <input type="hidden" id="edit-customer-id">
                 
-                <!-- Информация о заказчике -->
-                <div class="edit-info-grid">
-                    <!-- Организация -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-building"></i>
-                        <span class="edit-info-label">Наименование организации:</span>
-                        <input type="text" id="edit-customer" class="edit-info-input" value="НЛМК">
-                    </div>
-                    
-                    <!-- Ответственное лицо -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-user-tie"></i>
-                        <span class="edit-info-label">ФИО ответственного лица</span>
-                        <input type="text" id="edit-fio-customer" class="edit-info-input" value="Каратаев Сергей Михайлович">
-                    </div>
-                    
-                    <!-- ИНН -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-wallet"></i>
-                        <span class="edit-info-label">ИНН:</span>
-                        <input type="text" id="edit-inn" class="edit-info-input" value="4823006703">
-                    </div>
-
-                    <!-- ОГРН -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-wallet"></i>
-                        <span class="edit-info-label">ОГРН:</span>
-                        <input type="text" id="edit-ogrn" class="edit-info-input" value="1047796123456">
-                    </div>
-                    
-                    <!-- Номер телефона -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span class="edit-info-label">Номер телефона:</span>
-                        <input type="text" id="edit-phone-number" class="edit-info-input" value="+7 (495) 504-05-04">
-                    </div>
-                    
-                    <!-- Электронная почта -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="edit-info-label">Электронная почта:</span>
-                        <input type="email" id="edit-email" class="edit-info-input" value="info@nlmk.com">
-                    </div>
+                <!-- Организация -->
+                <div class="edit-info-item">
+                    <i class="fas fa-building"></i>
+                    <span class="edit-info-label">Наименование организации:</span>
+                    <input type="text" id="edit-customer" class="edit-info-input" placeholder='Например: ООО "Ромашка"'>
+                </div>
+                
+                <!-- Ответственное лицо -->
+                <div class="edit-info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="edit-info-label">ФИО ответственного лица</span>
+                    <input type="text" id="edit-fio-customer" class="edit-info-input" placeholder="Например: Иванов Иван Иванович">
+                </div>
+                
+                <!-- ИНН -->
+                <div class="edit-info-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="edit-info-label">ИНН:</span>
+                    <input type="text" id="edit-inn" class="edit-info-input" placeholder="10 или 12 цифр, например: 7701123456">
                 </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-customer-wrapper')">Отмена</button>
+                <!-- ОГРН -->
+                <div class="edit-info-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="edit-info-label">ОГРН:</span>
+                    <input type="text" id="edit-ogrn" class="edit-info-input" placeholder="13 или 15 цифр, например: 1027700132194">
                 </div>
-            </form>
+                
+                <!-- Номер телефона -->
+                <div class="edit-info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="edit-info-label">Номер телефона:</span>
+                    <input type="text" id="edit-phone-number" class="edit-info-input" placeholder="+7 (999) 999-99-99">
+                </div>
+                
+                <!-- Электронная почта -->
+                <div class="edit-info-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="edit-info-label">Электронная почта:</span>
+                    <input type="email" id="edit-email" class="edit-info-input" placeholder="company@example.ru">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateCustomerFromModal()">Сохранить изменения</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('edit-customer-wrapper')">Отмена</button>
+            </div>
         </div>
     </div>
 </body>

@@ -80,7 +80,6 @@ class AuthUI {
             }
             
             const userDetails = await response.json();
-            console.log('Детальные данные пользователя:', userDetails);
             
             // Обновляем данные в localStorage с полной информацией
             const currentUserData = this.getUserData() || {};
@@ -123,9 +122,7 @@ class AuthUI {
     updateUI() {
         const isAuth = this.isAuthenticated();
         const userData = this.getUserData();
-        
-        console.log('Авторизован:', isAuth, 'Данные:', userData);
-        
+                
         if (this.loginBtn) {
             this.loginBtn.style.display = isAuth ? 'none' : 'flex';
         }
@@ -153,7 +150,7 @@ class AuthUI {
             adminMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
         }
         // Показываем пункт меню "Заказчики" только для админа (0) и руководителя проекта (1)
-               const customersMenuItem = document.querySelector('.nav-menu li[data-page="customers"]');
+        const customersMenuItem = document.querySelector('.nav-menu li[data-page="customers"]');
         if (customersMenuItem) {
             const hasAccess = userData && (
                 userData.roleNumber === 0 || 
@@ -239,7 +236,6 @@ class AuthUI {
         
         this.updateUI();
         
-        alert('Вы вышли из системы');
         window.location.reload();
     }
     

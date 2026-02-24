@@ -1,7 +1,34 @@
+// Загрузка всех компонентов в main
+const COMPONENTS = {
+    sidebar: 'components/sidebar.html',
+    header: 'components/header.html',
+    signIn: 'components/modals/signIn.html',
+    signUp: 'components/modals/signUp.html',
+    projects: 'components/pages/projects.html',
+    admin: 'components/pages/adminPanel.html',
+    tasks: 'components/pages/tasks.html',
+    createProject: 'components/modals/createProject.html',
+    deleteProject: 'components/modals/deleteProject.html',
+    editProject: 'components/modals/editProject.html',
+    task: 'components/modals/Task.html',
+    editUser: 'components/modals/editUser.html',
+    customers: 'components/pages/customers.html',
+    customer: 'components/modals/customer.html',
+    editCustomer: 'components/modals/editCustomer.html',
+    deleteCustomer: 'components/modals/deleteCustomer.html',
+    projectMembers: 'components/modals/projectMembers.html',
+    projectStatuses: 'components/modals/projectMembers.html',
+    taskModal: 'components/modals/taskModal.html',
+    reports: 'components/pages/reports.html',
+    selectPeriod: 'components/modals/selectPeriod.html',
+    exportPDF: 'components/modals/exportPDF.html',
+};
+
 // Функция загрузки компонента
 async function loadComponent(componentId, componentPath) {
     try {
         const response = await fetch(componentPath);
+        
         const html = await response.text();
         const container = document.getElementById(componentId);
         
@@ -15,6 +42,7 @@ async function loadComponent(componentId, componentPath) {
     }
 }
 
+// Функция переключения страниц
 // Функция переключения страниц
 function initPageSwitcher() {
     // Маппинг названий страниц
@@ -34,7 +62,6 @@ function initPageSwitcher() {
         if (!navItem) return;
         
         const pageId = navItem.dataset.page;
-        console.log('Клик по пункту меню:', pageId);
         
         // Обновляем заголовок страницы
         updatePageTitle(pageId, pageTitles);
@@ -58,14 +85,12 @@ function initPageSwitcher() {
         if (targetPage) {
             targetPage.style.display = 'block';
             targetPage.classList.add('active');
-            console.log('Страница показана:', pageId);
             
             // Если это главная страница - загружаем данные
             if (pageId === 'dashboard' && typeof loadDashboard === 'function') {
                 loadDashboard();
             }
         } else {
-            console.log('Страница не найдена:', pageId);
         }
     });
 }
@@ -74,6 +99,7 @@ function initPageSwitcher() {
 function updatePageTitle(pageId, titlesMap) {
     const pageTitleElement = document.getElementById('page-title');
     if (pageTitleElement) {
+        // Получаем название из маппинга или используем pageId как fallback
         const title = titlesMap[pageId] || pageId;
         pageTitleElement.textContent = title;
     }
@@ -82,42 +108,46 @@ function updatePageTitle(pageId, titlesMap) {
 document.addEventListener('DOMContentLoaded', function() {
     const loadPromises = [];
     
-    // 📌 ОСНОВНЫЕ КОМПОНЕНТЫ
+    // Загружаем компоненты
     if (document.getElementById('sidebar')) {
-        loadPromises.push(loadComponent('sidebar', '/projectmanagament45/components/sidebar.html'));
+        loadPromises.push(loadComponent('sidebar', 'components/sidebar.html'));
     }
     
     if (document.getElementById('header')) {
-        loadPromises.push(loadComponent('header', '/projectmanagament45/components/header.html'));
+        loadPromises.push(loadComponent('header', 'components/header.html'));
     }
 
-    // 📌 МОДАЛЬНЫЕ ОКНА (исправленные пути)
+     
     if (document.getElementById('taskModal')) {
-        loadPromises.push(loadComponent('taskModal', 'components/modals/taskModal.html'));
+    loadPromises.push(loadComponent('taskModal', 'components/modals/taskModal.html'));
     }
     
     if (document.getElementById('createProject')) {
-        loadPromises.push(loadComponent('createProject', 'components/modals/createProject.html'));
+    loadPromises.push(loadComponent('createProject', 'components/modals/createProject.html'));
     }
 
     if (document.getElementById('projectStatuses')) {
-        loadPromises.push(loadComponent('projectStatuses', 'components/modals/projectStatuses.html')); // ✅ ИСПРАВЛЕНО
+    loadPromises.push(loadComponent('projectStatuses', 'components/modals/projectStatuses.html'));
+    }
+
+    if (document.getElementById('taskModalForTasks')) {
+    loadPromises.push(loadComponent('taskModalForTasks', 'components/modals/taskModalForTasks.html'));
     }
 
     if (document.getElementById('deleteProject')) {
-        loadPromises.push(loadComponent('deleteProject', 'components/modals/deleteProject.html'));
+    loadPromises.push(loadComponent('deleteProject', 'components/modals/deleteProject.html'));
     }
 
     if (document.getElementById('editProject')) {
-        loadPromises.push(loadComponent('editProject', 'components/modals/editProject.html'));
+    loadPromises.push(loadComponent('editProject', 'components/modals/editProject.html'));
     }
 
     if (document.getElementById('editUser')) {
-        loadPromises.push(loadComponent('editUser', 'components/modals/editUser.html'));
+    loadPromises.push(loadComponent('editUser', 'components/modals/editUser.html'));
     }
 
     if (document.getElementById('signin')) {
-        loadPromises.push(loadComponent('signin', '/projectmanagament45/components/modals/signIn.html'));
+        loadPromises.push(loadComponent('signin', 'components/modals/signIn.html'));
     }
 
     if (document.getElementById('signup')) {
@@ -128,19 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
         loadPromises.push(loadComponent('projectMembers', 'components/modals/projectMembers.html'));
     }
 
-    if (document.getElementById('customer')) {
-        loadPromises.push(loadComponent('customer', 'components/modals/customer.html'));
-    }
-
-    if (document.getElementById('editCustomer')) {
-        loadPromises.push(loadComponent('editCustomer', 'components/modals/editCustomer.html'));
-    }
-
-    if (document.getElementById('deleteCustomer')) {
-        loadPromises.push(loadComponent('deleteCustomer', 'components/modals/deleteCustomer.html'));
-    }
-
-    // 📌 СТРАНИЦЫ
     if (document.getElementById('admin')) {
         loadPromises.push(loadComponent('admin', 'components/pages/adminPanel.html'));
     }
@@ -157,8 +174,29 @@ document.addEventListener('DOMContentLoaded', function() {
         loadPromises.push(loadComponent('customers', 'components/pages/customers.html'));
     }
 
+    if (document.getElementById('customer')){
+        loadPromises.push(loadComponent('customer', 'components/modals/customer.html'))
+    }
+
+    if (document.getElementById('editCustomer')) {
+    loadPromises.push(loadComponent('editCustomer', 'components/modals/editCustomer.html'));
+    }
+
+    if (document.getElementById('deleteCustomer')) {
+    loadPromises.push(loadComponent('deleteCustomer', 'components/modals/deleteCustomer.html'));
+    }
+
+    if (document.getElementById('reports')) {
+        loadPromises.push(loadComponent('reports', 'components/pages/reports.html'));
+    }
+
+    if (document.getElementById('selectPeriod')) {
+        loadPromises.push(loadComponent('selectPeriod', 'components/modals/selectPeriod.html'));
+    }
+    if (document.getElementById('exportPDF')) {
+        loadPromises.push(loadComponent('exportPDF', 'components/modals/exportPDF.html'));
+    }
     Promise.all(loadPromises).then(() => {
-        console.log('Все компоненты загружены');
         
         setTimeout(() => {
             document.body.classList.add('page-loaded');

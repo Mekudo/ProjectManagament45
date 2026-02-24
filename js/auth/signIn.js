@@ -2,7 +2,6 @@ let signInFormInitialized = false;
 
 function initSignInForm() {
     if (signInFormInitialized) {
-        console.log('Форма уже инициализирована, пропускаю...');
         return;
     }
     
@@ -46,7 +45,6 @@ function initSignInForm() {
             }
             
             const data = await response.json();
-            console.log('✓ Успешный ответ от сервера:', data);
             
             // используем authUI для сохранения данных
             if (window.authUI && window.authUI.login) {
@@ -67,7 +65,6 @@ function initSignInForm() {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
             
-            alert(`Успешный вход! Добро пожаловать, ${login}`);
             
         } catch (error) {
             console.error('✗ Ошибка входа:', error);

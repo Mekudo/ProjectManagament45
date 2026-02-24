@@ -5,29 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Система управления проектами</title>
 
-    <link rel="stylesheet" href="/projectmanagament45/css/main.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/reset.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/pages/adminPages.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/pages/projects.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/pages/tasks.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/pages/customers.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editUser.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/editCustomer.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/deleteCustomer.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/projectMembers.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/projectStatuses.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/signin.css">
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/signUp.css">
-
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/components/pages/adminPages.css">
+    <link rel="stylesheet" href="./css/components/pages/projects.css">
+    <link rel="stylesheet" href="./css/components/pages/tasks.css">
+    <link rel="stylesheet" href="./css/components/pages/customers.css">
+    <link rel="stylesheet" href="./css/components/modals/editUser.css">
+    <link rel="stylesheet" href="./css/components/modals/editCustomer.css">
+    <link rel="stylesheet" href="./css/components/modals/deleteCustomer.css">
     <script src="./js/componentsLoad.js" defer></script>
     <script src="./js/modals/authModals.js" defer></script>
     <script src="./js/auth/authFlow.js" defer></script>
-    <script src="./js/auth/authUI.js"></script>
-    <script src="./js/auth/signIn.js"></script>
-    <script src="./js/auth/signUp.js"></script>
-    <script src="./js/pages/adminLoad.js"></script>
-    <script src="./js/pages/project.js"></script>
-    <script src="./js/pages/main.js"></script>
+    <script src="./js/auth/authUI.js" defer></script>
+    <script src="./js/auth/signIn.js" defer></script>
+    <script src="./js/auth/signUp.js" defer></script>
+    <script src="./js/pages/adminLoad.js" defer></script>
+    <script src="./js/pages/project.js" defer></script>
+    <script src="./js/pages/main.js" defer></script>
+    <script src="./js/pages/tasks.js" defer></script>
+    <script src="./js/pages/customers.js" defer></script>
 
 
 </head>
@@ -47,7 +44,10 @@
             <div id="deleteCustomer"></div>
             <div id="projectMembers"></div>
             <div id="projectStatuses"></div>
+            <div id="taskModalForTasks"></div>
             <div id="taskModal"></div>
+
+            
             <!-- Основной контент -->
             <div class="main-content">
                 <div id="header"></div>
@@ -107,5 +107,6 @@
                 <div id="admin" class="page"></div>
                 <div id="customers" class="page"></div>
         </div>
+        <div id="toast-container" class="toast-container"></div>
     </body>
 </html>

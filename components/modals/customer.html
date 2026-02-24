@@ -1,54 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer</title>
-
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/customer.css">
-
+    <title>Создание заказчика</title>
     <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <script src="/project-management/ProjectManagement.Frontend/js/pages/customer.js" defer></script>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/customer.css">
 </head>
 <body>
     <div class="modal-overlay" id="customer-wrapper">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Создание заказчика</h2>
-                <button class="close-modal" data-close="customer" onclick="closeModal('customer-wrapper')">&times;</button>
+                <h2>➕ Создание нового заказчика</h2>
+                <button class="close-modal" onclick="closeModal('customer-wrapper')">&times;</button>
             </div>
             
-            <form id="customer">
+            <div class="form-container">
+                <!-- Организация -->
                 <div class="form-group">
-                    <p>Наименование организации</p>
-                    <input type="text" id="nameInput" placeholder="" required>
+                    <div class="form-label">
+                        <i class="fas fa-building"></i>
+                        <span>Наименование организации:</span>
+                    </div>
+                    <input type="text" id="orgInput" class="form-input" placeholder='Например: ООО "Ромашка"' required>
+                </div>
+                
+                <!-- Ответственное лицо -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <i class="fas fa-user-tie"></i>
+                        <span>ФИО ответственного лица:</span>
+                    </div>
+                    <input type="text" id="fioInput" class="form-input" placeholder="Например: Иванов Иван Иванович" required>
+                </div>
+                
+                <!-- ИНН -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <i class="fas fa-id-card"></i>
+                        <span>ИНН:</span>
+                    </div>
+                    <input type="text" id="innInput" class="form-input" placeholder="10 или 12 цифр, например: 7701123456" required>
                 </div>
 
+                <!-- ОГРН -->
                 <div class="form-group">
-                    <p>ФИО ответственного лица</p>
-                    <input type="text" id="fioInput" placeholder="Иванов Иван Иванович" required>
+                    <div class="form-label">
+                        <i class="fas fa-id-card"></i>
+                        <span>ОГРН:</span>
+                    </div>
+                    <input type="text" id="ogrnInput" class="form-input" placeholder="13 или 15 цифр, например: 1027700132194" required>
                 </div>
                 
+                <!-- Номер телефона -->
                 <div class="form-group">
-                    <p>ИНН</p>
-                    <input type="text" id="innInput" placeholder="3731000000" required>
+                    <div class="form-label">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Номер телефона:</span>
+                    </div>
+                    <input type="tel" id="phoneNumberInput" class="form-input" placeholder="+7 (999) 999-99-99" required>
                 </div>
+                
+                <!-- Электронная почта -->
                 <div class="form-group">
-                    <p>ОГРН</p>
-                    <input type="text" id="innInput" placeholder="1027700000000" required>
+                    <div class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        <span>Электронная почта:</span>
+                    </div>
+                    <input type="email" id="emailInput" class="form-input" placeholder="company@example.ru" required>
                 </div>
-                <div class="form-group">
-                    <p>Номер телефона</p>
-                    <input type="text" id="innInput" placeholder="+7 (999) 999-99-99" required>
-                </div>
-                <div class="form-group">
-                    <p>Электронная почта</p>
-                    <input type="text" id="innInput" placeholder="primer@pri.com" required>
-                </div>
-                <button type="submit" class="btn-submit">
-                    <p class="fas fa-plus">Добавить заказчика</p> 
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="addCustomerFromModal()">
+                    <i class="fas fa-save"></i> Создать заказчика
                 </button>
-                
-            </form>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('customer-wrapper')">
+                    <i class="fas fa-times"></i> Отмена
+                </button>
+            </div>
         </div>
     </div>
 </body>

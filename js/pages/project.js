@@ -94,7 +94,6 @@ function loadProjects() {
     })
     .then(response => response.json())
     .then(async projects => {
-        console.log('Проекты загружены:', projects);
         allProjects = projects;
         
         // Загружаем имена руководителей и заказчиков для всех проектов
@@ -243,7 +242,6 @@ function loadCustomers() {
     })
     .then(response => response.json())
     .then(customers => {
-        console.log('Заказчики загружены:', customers);
         allCustomers = customers;
         
         // Также заполняем кэш заказчиков
@@ -264,7 +262,6 @@ function loadAllUsers() {
     })
     .then(response => response.json())
     .then(users => {
-        console.log('Пользователи загружены:', users);
         allUsersList = users;
         
         // Заполняем кэш пользователей
@@ -355,7 +352,6 @@ function createProject(event) {
         return;
     }
     
-    console.log('Отправка данных:', projectData);
     
     fetch('https://dmitrii-golubev.ru:7000/api/project', {
         method: 'POST',
@@ -374,7 +370,24 @@ function createProject(event) {
         return response.json();
     })
     .then(result => {
-        console.log('Проект создан:', result);
+        
+        // Автоматически добавляем создателя как исполнителя
+        const addToProjectData = {
+            projectId: result.id,
+            userId: projectData.projectManagerId
+        };
+        
+        return fetch('https://dmitrii-golubev.ru:7000/api/user-project', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(addToProjectData)
+        })
+        .then(() => result);
+    })
+    .then(result => {
         closeModal('create-project-wrapper');
         alert('Проект успешно создан');
         loadProjects(); // Перезагружаем проекты
@@ -384,7 +397,6 @@ function createProject(event) {
         alert('Ошибка при создании проекта: ' + error.message);
     });
 }
-
 // Установка текущего пользователя как руководителя
 function setCurrentUserAsManager() {
     const userId = localStorage.getItem('userId');
@@ -428,7 +440,6 @@ function openCreateProjectModal() {
 // Редактирование проекта
 // Редактирование проекта
 function editProject(projectId) {
-    console.log('Редактирование проекта:', projectId);
     const project = allProjects.find(p => p.id === projectId);
     
     if (!project) {
@@ -476,14 +487,12 @@ function editProject(projectId) {
     // Заполняем статус
     if (elements.status) {
         let statusValue = project.status;
-        console.log('Исходный статус из БД:', statusValue);
         
         // Преобразуем статусы из БД в статусы модалки
         if (statusValue === 3 || statusValue === 4) {
             statusValue = 2; // Завершен
         }
         elements.status.value = statusValue || 0;
-        console.log('Установлен статус в модалке:', statusValue);
         
         // Удаляем старый обработчик если был
         elements.status.removeEventListener('change', statusChangeHandler);
@@ -526,7 +535,6 @@ function editProject(projectId) {
 
 // Выносим обработчик в отдельную функцию
 function statusChangeHandler(event) {
-    console.log('Статус изменен на:', event.target.value);
     toggleActualEndDate(parseInt(event.target.value));
 }
 
@@ -536,16 +544,13 @@ function toggleActualEndDate(status) {
     const endDateField = document.getElementById('edit-end-date');
     
     if (actualDateGroup) {
-        console.log('toggleActualEndDate вызван со статусом:', status);
         
         if (status === 2) { // Завершен
-            console.log('Показываем поле фактической даты');
             actualDateGroup.style.display = 'block';
             if (endDateField) {
                 endDateField.required = true;
             }
         } else {
-            console.log('Скрываем поле фактической даты');
             actualDateGroup.style.display = 'none';
             if (endDateField) {
                 endDateField.value = '';
@@ -619,7 +624,6 @@ function updateProject(event) {
         projectData.cost = parseInt(cost);
     }
     
-    console.log('Обновление проекта:', projectData);
     
     // Отправляем PUT на /api/project без ID в URL
     fetch('https://dmitrii-golubev.ru:7000/api/project', {
@@ -639,9 +643,7 @@ function updateProject(event) {
         return response.json();
     })
     .then(result => {
-        console.log('Проект обновлен:', result);
         closeModal('edit-project-wrapper');
-        alert('Проект успешно обновлен');
         loadProjects(); // Перезагружаем проекты
     })
     .catch(error => {
@@ -651,7 +653,6 @@ function updateProject(event) {
 }
 // Открыть модалку управления исполнителями
 function manageProjectMembers(projectId) {
-    console.log('Управление исполнителями проекта:', projectId);
     const project = allProjects.find(p => p.id === projectId);
     
     if (!project) {
@@ -694,7 +695,8 @@ function loadProjectMembers(projectId) {
         </div>
     `;
     
-    fetch(`https://dmitrii-golubev.ru:7000/api/project/${projectId}/users`, {
+    // Получаем связи пользователей с проектом через /user-project/project/{projectId}
+    fetch(`https://dmitrii-golubev.ru:7000/api/user-project/project/${projectId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -706,9 +708,31 @@ function loadProjectMembers(projectId) {
         }
         return response.json();
     })
+    .then(relations => {
+        
+        if (!relations || relations.length === 0) {
+            displayProjectMembers([]);
+            return;
+        }
+        
+        // Для каждой связи получаем детальную информацию о пользователе
+        const userPromises = relations.map(relation => 
+            fetch(`https://dmitrii-golubev.ru:7000/api/user/${relation.userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => res.json())
+            .then(user => ({
+                ...user,
+                relationId: relation.id // Сохраняем ID связи для удаления
+            }))
+        );
+        
+        return Promise.all(userPromises);
+    })
     .then(users => {
-        console.log('Исполнители проекта:', users);
-        displayProjectMembers(users);
+        displayProjectMembers(users || []);
         
         // После загрузки исполнителей, обновляем список доступных
         loadAvailableUsers();
@@ -725,7 +749,7 @@ function loadProjectMembers(projectId) {
     });
 }
 
-// Загрузка доступных пользователей (только исполнители, не в проекте)
+// Загрузка доступных пользователей (руководители и исполнители, не в проекте)
 function loadAvailableUsers() {
     const listElement = document.getElementById('available-users-list');
     
@@ -737,17 +761,18 @@ function loadAvailableUsers() {
     })
     .then(response => response.json())
     .then(users => {
-        console.log('Все пользователи:', users);
         
-        // Фильтруем только исполнителей (role = 2)
-        const executors = users.filter(user => user.role === 2 && user.isActive === true);
+        // Фильтруем руководителей (role = 1) и исполнителей (role = 2)
+        const availableRoles = users.filter(user => 
+            (user.role === 1 || user.role === 2) && user.isActive === true
+        );
         
-        // Получаем ID текущих исполнителей проекта из DOM
+        // Получаем ID текущих участников проекта из DOM
         const currentMembers = document.querySelectorAll('#project-users-list .member-item');
         const currentMemberIds = Array.from(currentMembers).map(item => item.dataset.userId);
         
         // Фильтруем тех, кто еще не в проекте
-        const availableUsers = executors.filter(user => !currentMemberIds.includes(user.id));
+        const availableUsers = availableRoles.filter(user => !currentMemberIds.includes(user.id));
         
         displayAvailableUsers(availableUsers);
     })
@@ -770,7 +795,6 @@ function getRoleClass(role) {
         default: return '';
     }
 }
-// Отображение исполнителей проекта
 // Отображение исполнителей проекта
 function displayProjectMembers(members) {
     const listElement = document.getElementById('project-users-list');
@@ -868,7 +892,6 @@ function addMemberToProject(userId) {
         userId: userId
     };
     
-    console.log('Добавление исполнителя:', data);
     
     fetch('https://dmitrii-golubev.ru:7000/api/user-project', {
         method: 'POST',
@@ -887,7 +910,6 @@ function addMemberToProject(userId) {
         return response.json();
     })
     .then(result => {
-        console.log('Исполнитель добавлен:', result);
         // Перезагружаем оба списка
         loadProjectMembers(currentProjectForMembers.id);
         loadAvailableUsers();
@@ -913,7 +935,6 @@ function getUserProjectId(userId, projectId) {
         return response.json();
     })
     .then(relations => {
-        console.log('Связи пользователя:', relations);
         // Ищем связь с нужным проектом
         const relation = relations.find(r => r.projectId === projectId);
         if (!relation) {
@@ -934,15 +955,32 @@ function removeMemberFromProject(userId) {
         return;
     }
     
-    console.log('Удаление исполнителя:', userId, 'из проекта:', currentProjectForMembers.id);
     
-    // Сначала получаем ID связи
-    getUserProjectId(userId, currentProjectForMembers.id)
-    .then(relationId => {
-        console.log('ID связи для удаления:', relationId);
+    // Сначала получаем связи для этого проекта
+    fetch(`https://dmitrii-golubev.ru:7000/api/user-project/project/${currentProjectForMembers.id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Ошибка получения связей проекта: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(relations => {
+        
+        // Ищем связь с нужным userId
+        const relation = relations.find(r => r.userId === userId);
+        
+        if (!relation) {
+            throw new Error('Связь пользователя с проектом не найдена');
+        }
+        
         
         // Удаляем по ID связи
-        return fetch(`https://dmitrii-golubev.ru:7000/api/user-project/${relationId}`, {
+        return fetch(`https://dmitrii-golubev.ru:7000/api/user-project/${relation.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -955,17 +993,19 @@ function removeMemberFromProject(userId) {
                 throw new Error(text || `Ошибка ${response.status}`);
             });
         }
-        console.log('Исполнитель удален');
+        
         // Перезагружаем оба списка
         loadProjectMembers(currentProjectForMembers.id);
         loadAvailableUsers();
+        
+
     })
     .catch(error => {
         console.error('Ошибка:', error);
         alert('Ошибка при удалении исполнителя: ' + error.message);
     });
 }
-// Поиск по доступным пользователям
+
 function searchAvailableUsers() {
     const searchTerm = document.getElementById('available-users-search').value.toLowerCase();
     const items = document.querySelectorAll('#available-users-list .member-item');
@@ -1100,7 +1140,6 @@ function searchEditManager() {
 // Удаление проекта
 function deleteProject(projectId) {
     if (confirm('Вы уверены, что хотите удалить проект?')) {
-        console.log('Удаление проекта:', projectId);
         
         fetch(`https://dmitrii-golubev.ru:7000/api/project/${projectId}`, {
             method: 'DELETE',
@@ -1112,7 +1151,6 @@ function deleteProject(projectId) {
             if (!response.ok) {
                 throw new Error(`Ошибка ${response.status}`);
             }
-            alert('Проект успешно удален');
             loadProjects(); // Перезагружаем проекты
         })
         .catch(error => {
@@ -1153,7 +1191,6 @@ document.addEventListener('click', function(e) {
 
 // Открыть модалку управления статусами
 function manageProjectStatuses(projectId) {
-    console.log('Управление статусами проекта:', projectId);
     const project = allProjects.find(p => p.id === projectId);
     
     if (!project) {
@@ -1198,7 +1235,6 @@ function loadProjectStatuses(projectId) {
         return response.json();
     })
     .then(statuses => {
-        console.log('Статусы проекта:', statuses);
         
         // Получаем задачи проекта для подсчета
         return fetch(`https://dmitrii-golubev.ru:7000/api/project/${projectId}/tasks`, {
@@ -1329,7 +1365,6 @@ function addProjectStatus() {
         order: apiOrder
     };
     
-    console.log('Добавление статуса:', statusData);
     
     fetch('https://dmitrii-golubev.ru:7000/api/status', {
         method: 'POST',
@@ -1348,7 +1383,6 @@ function addProjectStatus() {
         return response.json();
     })
     .then(result => {
-        console.log('Статус добавлен:', result);
         nameInput.value = '';
         orderInput.value = '1';
         loadProjectStatuses(currentProjectForStatuses.id);
@@ -1361,7 +1395,6 @@ function addProjectStatus() {
 
 // Редактирование статуса
 function editProjectStatus(statusId) {
-    console.log('Редактирование статуса:', statusId);
     const statusItem = document.querySelector(`.status-item[data-status-id="${statusId}"]`);
     if (statusItem) {
         // Скрываем блок с информацией
@@ -1378,7 +1411,6 @@ function editProjectStatus(statusId) {
 // Сохранение редактирования статуса
 // Сохранение редактирования статуса
 function saveStatusEdit(statusId) {
-    console.log('Сохранение статуса:', statusId);
     const statusItem = document.querySelector(`.status-item[data-status-id="${statusId}"]`);
     if (!statusItem) return;
     
@@ -1402,7 +1434,6 @@ function saveStatusEdit(statusId) {
         order: apiOrder
     };
     
-    console.log('Обновление статуса:', statusData);
     
     fetch('https://dmitrii-golubev.ru:7000/api/status', {
         method: 'PUT',
@@ -1421,7 +1452,6 @@ function saveStatusEdit(statusId) {
         return response.json();
     })
     .then(result => {
-        console.log('Статус обновлен:', result);
         loadProjectStatuses(currentProjectForStatuses.id);
     })
     .catch(error => {
@@ -1431,7 +1461,6 @@ function saveStatusEdit(statusId) {
 }
 // Отмена редактирования статуса
 function cancelStatusEdit(statusId) {
-    console.log('Отмена редактирования статуса:', statusId);
     const statusItem = document.querySelector(`.status-item[data-status-id="${statusId}"]`);
     if (statusItem) {
         const infoBlock = statusItem.querySelector('.status-info');
@@ -1463,7 +1492,6 @@ function deleteProjectStatus(statusId) {
         return;
     }
     
-    console.log('Удаление статуса:', statusId);
     
     fetch(`https://dmitrii-golubev.ru:7000/api/status/${statusId}`, {
         method: 'DELETE',
@@ -1477,7 +1505,6 @@ function deleteProjectStatus(statusId) {
                 throw new Error(text || `Ошибка ${response.status}`);
             });
         }
-        console.log('Статус удален');
         loadProjectStatuses(currentProjectForStatuses.id);
     })
     .catch(error => {

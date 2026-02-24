@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экспорт PDF</title>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/exportPDF.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="modal-overlay" id="export-pdf-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-pdf"></i> Экспорт отчета в PDF</h2>
+                <button class="close-modal" onclick="closeModal('export-pdf-wrapper')">&times;</button>
+            </div>
+            
+            <form id="export-pdf-form" onsubmit="handleExportPDF(event)">
+                <!-- Выбор разделов для экспорта -->
+                <div class="form-group">
+                    <label>Выберите разделы для экспорта:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="export-projects-status" checked>
+                            <span>Статус проектов</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="export-priority-distribution" checked>
+                            <span>Распределение по приоритетам</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="export-monthly-tasks" checked>
+                            <span>Выполнение по месяцам</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="export-detailed-tasks" checked>
+                            <span>Детальный список задач</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Формат страницы -->
+                <div class="form-group">
+                    <label>Ориентация страницы:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="page-orientation" value="portrait" checked>
+                            <span>Книжная</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="page-orientation" value="landscape">
+                            <span>Альбомная</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Включить временной период -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="export-use-period">
+                        <span>Ограничить выбранным периодом</span>
+                    </label>
+                </div>
+
+                <!-- Настройки сортировки -->
+                <div class="form-group">
+                    <label>Сортировка задач:</label>
+                    <select id="export-sort">
+                        <option value="priority">По приоритету</option>
+                        <option value="date">По дате создания</option>
+                        <option value="status">По статусу</option>
+                    </select>
+                </div>
+
+                <!-- Включить сводку -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="export-include-summary" checked>
+                        <span>Включить сводную статистику</span>
+                    </label>
+                </div>
+
+                <!-- Кнопки действий -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('export-pdf-wrapper')">
+                        Отмена
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i> Сформировать PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function handleExportPDF(event) {
+            event.preventDefault();
+            
+            // Собираем настройки экспорта
+            const exportSettings = {
+                sections: {
+                    projectsStatus: document.getElementById('export-projects-status').checked,
+                    priorityDistribution: document.getElementById('export-priority-distribution').checked,
+                    monthlyTasks: document.getElementById('export-monthly-tasks').checked,
+                    detailedTasks: document.getElementById('export-detailed-tasks').checked
+                },
+                orientation: document.querySelector('input[name="page-orientation"]:checked').value,
+                usePeriod: document.getElementById('export-use-period').checked,
+                sortBy: document.getElementById('export-sort').value,
+                includeSummary: document.getElementById('export-include-summary').checked
+            };
+            
+            console.log('Настройки экспорта:', exportSettings);
+            
+            // Показываем индикатор загрузки
+            const submitBtn = event.target.querySelector('.btn-primary');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Формирование...';
+            submitBtn.disabled = true;
+            
+            // Имитация формирования PDF
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Закрываем модалку
+                closeModal('export-pdf-wrapper');
+                
+                // Показываем сообщение об успехе
+                alert('✅ PDF отчет успешно сформирован и сохранен в папку "Загрузки"');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

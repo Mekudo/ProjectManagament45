@@ -24,12 +24,9 @@ function loadUsers() {
         return response.json();
     })
     .then(users => {
-        console.log('Все пользователи с сервера (включая неактивных):', users);
         
         const activeUsers = users.filter(user => user.isActive === true);
         
-        console.log('Активные пользователи (isActive: true):', activeUsers);
-        console.log(`Всего: ${users.length}, Активных: ${activeUsers.length}, Неактивных: ${users.length - activeUsers.length}`);
         
         tbody.innerHTML = '';
         
@@ -74,7 +71,6 @@ function loadUsers() {
             tbody.appendChild(row);
         });
         
-        console.log('✅ Отображено активных пользователей:', activeUsers.length);
     })
     .catch(error => {
         console.error('Ошибка загрузки пользователей:', error);
@@ -101,7 +97,6 @@ function getRoleInfo(roleNumber) {
 }
 
 function editUser(userId) {
-    console.log('Редактирование пользователя с ID:', userId);
     
     const modalWrapper = document.getElementById('edit-user-wrapper');
     
@@ -122,7 +117,6 @@ function editUser(userId) {
         return response.json();
     })
     .then(user => {
-        console.log('Данные пользователя:', user);
         
         document.getElementById('edit-user-id').value = user.id || '';
         document.getElementById('edit-user-name').value = user.name || '';
@@ -178,9 +172,7 @@ function saveUserChanges(event) {
         role: role,
         password: password
     };
-    
-    console.log('Отправка данных:', userData);
-    
+        
     fetch(`https://dmitrii-golubev.ru:7000/api/user`, {
         method: 'PUT',
         headers: {
@@ -204,7 +196,6 @@ function saveUserChanges(event) {
             document.getElementById('edit-user-wrapper').style.display = 'none';
         }
         loadUsers();
-        alert('Пользователь успешно обновлен');
     })
     .catch(error => {
         console.error('Ошибка:', error);
@@ -223,7 +214,7 @@ function deleteUser(userId) {
         .then(response => {
             if (!response.ok) throw new Error(`Ошибка удаления: ${response.status}`);
             loadUsers();
-            alert('Пользователь успешно удален');
+
         })
         .catch(error => {
             console.error('Ошибка:', error);

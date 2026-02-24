@@ -98,7 +98,6 @@ function initSignUpForm() {
             }
             
             const data = await response.json();
-            console.log('✓ Успешная регистрация:', data);
             
             closeModal('sign-up-wrapper');
             
@@ -110,7 +109,7 @@ function initSignUpForm() {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
             
-            alert('Регистрация прошла успешно');
+
             
             // Обновляем таблицу пользователей
             if (typeof loadUsers === 'function') {
@@ -118,7 +117,6 @@ function initSignUpForm() {
             } else if (window.loadUsers) {
                 window.loadUsers();
             } else {
-                console.log('Функция loadUsers не найдена, ищем альтернативы...');
                 // Если loadUsers не доступна, пробуем найти другие способы
                 setTimeout(() => {
                     // Можно вызвать событие для обновления

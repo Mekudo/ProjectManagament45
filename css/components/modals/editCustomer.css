@@ -1,4 +1,7 @@
-/* Модальное окно редактирования проекта */
+/* ============================================
+   МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ
+   ============================================ */
+
 .modal-overlay {
     display: none;
     position: fixed;
@@ -6,282 +9,256 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 
-#edit-project-wrapper .modal-content {
-    background-color: white;
-    border-radius: 16px;
+#edit-customer-wrapper .modal-content {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 32px;
     width: 90%;
-    max-width: 650px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
-    animation: modalFadeIn 0.3s ease;
+    max-width: 800px;  /* Увеличил с 700 до 800 */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-@keyframes modalFadeIn {
+@keyframes modalSlideUp {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(30px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-#edit-project-wrapper .modal-header {
+#edit-customer-wrapper .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid #eaeef2;
+    padding: 24px 32px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
 }
 
-#edit-project-wrapper .modal-header h2 {
+#edit-customer-wrapper .modal-header h2 {
     margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1a2634;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e293b, #2c6b9e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-#edit-project-wrapper .close-modal {
-    background: none;
-    border: none;
+#edit-customer-wrapper .modal-header h2 i {
     font-size: 1.8rem;
+    color: #2c6b9e;
+}
+
+#edit-customer-wrapper .close-modal {
+    background: rgba(0, 0, 0, 0.03);
+    border: none;
+    font-size: 2rem;
     cursor: pointer;
-    color: #7f8c9a;
+    color: #64748b;
     padding: 0;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all 0.2s;
+    transition: all 0.3s ease;  /* Убрал rotate */
+    border: 1px solid transparent;
 }
 
-#edit-project-wrapper .close-modal:hover {
-    background-color: #f1f5f9;
-    color: #1e2a38;
+#edit-customer-wrapper .close-modal:hover {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-color: #fecaca;
+    transform: scale(1.1);  /* Только увеличение, без поворота */
 }
 
-#edit-project-form {
-    padding: 24px;
-}
-
-/* Секция названия проекта */
-.edit-title-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px dashed #d0d9e3;
-}
-
-.edit-title-section i {
-    font-size: 1.5rem;
-    color: #2c6b9e;
-    width: 32px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.edit-title-input {
-    flex: 1;
-    font-size: 1.3rem;
-    font-weight: 600;
-    padding: 12px 16px;
-    border: 1px solid #d0d9e3;
-    border-radius: 10px;
-    color: #1e2a38;
-    transition: all 0.2s;
-    box-sizing: border-box;
-}
-
-.edit-title-input:focus {
-    outline: none;
-    border-color: #2c6b9e;
-    box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
-}
-
-/* Все поля в столбик */
-.edit-info-grid {
+#edit-customer-wrapper .edit-info-grid {
+    padding: 32px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 24px;
 }
 
-.edit-info-item {
+#edit-customer-wrapper .edit-info-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 6px 0;
+    gap: 20px;  /* Увеличил gap */
+    padding: 4px 0;
 }
 
-.edit-info-item i {
-    font-size: 1.1rem;
-    color: #5c6f87;
-    width: 24px;
+#edit-customer-wrapper .edit-info-item i {
+    font-size: 1.3rem;  /* Увеличил размер иконок */
+    color: #2c6b9e;
+    width: 48px;  /* Увеличил контейнер для иконок */
+    height: 48px;  /* Добавил высоту */
     text-align: center;
     flex-shrink: 0;
+    background: #f0f7ff;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.edit-info-label {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #5c6f87;
-    width: 180px; /* Фиксированная ширина для всех названий */
+#edit-customer-wrapper .edit-info-item:hover i {
+    background: #2c6b9e;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(44, 107, 158, 0.3);
+}
+
+#edit-customer-wrapper .edit-info-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    width: 200px;
     flex-shrink: 0;
+    letter-spacing: 0.3px;
 }
 
-.edit-info-input,
-.edit-info-select {
+#edit-customer-wrapper .edit-info-input,
+#edit-customer-wrapper .edit-info-select {
     flex: 1;
-    padding: 10px 14px;
-    border: 1px solid #d0d9e3;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: #1e2a38;
-    background-color: white;
-    transition: all 0.2s;
+    padding: 14px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    font-size: 1rem;
+    color: #1e293b;
+    background: white;
+    transition: all 0.3s ease;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
-.edit-info-input:focus,
-.edit-info-select:focus {
+#edit-customer-wrapper .edit-info-input:hover,
+#edit-customer-wrapper .edit-info-select:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+#edit-customer-wrapper .edit-info-input:focus,
+#edit-customer-wrapper .edit-info-select:focus {
     outline: none;
     border-color: #2c6b9e;
-    box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
+    background: white;
+    box-shadow: 0 5px 20px rgba(44, 107, 158, 0.15);
+    transform: translateY(-1px);
 }
 
-.edit-info-select {
+#edit-customer-wrapper .edit-info-select {
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235c6f87' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232c6b9e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
+    background-position: right 20px center;
     appearance: none;
-    padding-right: 36px;
+    padding-right: 48px;
 }
 
-/* Группа для заметок и длинных текстов */
-.edit-info-item.textarea-item {
-    align-items: flex-start;
-}
-
-.edit-info-item.textarea-item i {
-    margin-top: 12px;
-}
-
-.edit-info-item.textarea-item .edit-info-label {
-    padding-top: 12px;
-}
-
-.edit-info-textarea {
-    flex: 1;
-    padding: 12px 14px;
-    border: 1px solid #d0d9e3;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: #1e2a38;
-    background-color: white;
-    transition: all 0.2s;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 80px;
-    resize: vertical;
-    font-family: inherit;
-}
-
-.edit-info-textarea:focus {
-    outline: none;
-    border-color: #2c6b9e;
-    box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
-}
-
-/* Примечания (если нужны отдельно) */
-#edit-customer-wrapper .form-group {
-    margin-bottom: 24px;
-}
-
-#edit-customer-wrapper .form-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 500;
-    color: #1e2a38;
-    font-size: 0.95rem;
-}
-
-#edit-customer-wrapper .form-group textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d0d9e3;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    resize: vertical;
-    min-height: 80px;
-    font-family: inherit;
-    box-sizing: border-box;
-}
-
-#edit-customer-wrapper .form-group textarea:focus {
-    outline: none;
-    border-color: #2c6b9e;
-    box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
+/* Специальные стили для email поля */
+#edit-customer-wrapper .edit-info-input[type="email"] {
+    font-family: monospace;
 }
 
 /* Футер с кнопками */
 #edit-customer-wrapper .modal-footer {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    padding-top: 20px;
-    border-top: 1px solid #eaeef2;
+    align-items: center;  /* Добавил выравнивание по центру */
+    gap: 20px;
+    padding: 24px 32px 32px;
+    border-top: 1px solid rgba(226, 232, 240, 0.6);
+    background: rgba(248, 250, 252, 0.7);
+    backdrop-filter: blur(10px);
 }
 
 #edit-customer-wrapper .btn {
-    padding: 12px 28px;
-    border-radius: 40px;
+    padding: 14px 32px;  /* Уменьшил и сделал одинаковые отступы */
+    border-radius: 50px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border: none;
-    min-width: 160px;
+    min-width: 180px;  /* Уменьшил минимальную ширину */
     text-align: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.2;  /* Добавил фиксированную высоту строки */
+    height: 48px;  /* Фиксированная высота для обеих кнопок */
+}
+
+#edit-customer-wrapper .btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+#edit-customer-wrapper .btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 #edit-customer-wrapper .btn-secondary {
-    background-color: #f1f5f9;
-    color: #33475b;
-    border: 1px solid #dde3ea;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 #edit-customer-wrapper .btn-secondary:hover {
-    background-color: #e4eaf2;
-    border-color: #cbd5e1;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 #edit-customer-wrapper .btn-primary {
-    background-color: #2c6b9e;
+    background: linear-gradient(135deg, #2c6b9e, #3498db);
     color: white;
-    box-shadow: 0 4px 8px rgba(44, 107, 158, 0.2);
+    box-shadow: 0 8px 20px rgba(44, 107, 158, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #edit-customer-wrapper .btn-primary:hover {
-    background-color: #1f4f7a;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 12px rgba(44, 107, 158, 0.25);
+    background: linear-gradient(135deg, #1f4f7a, #2c6b9e);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(44, 107, 158, 0.4);
+}
+
+#edit-customer-wrapper .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(44, 107, 158, 0.3);
 }
 
 /* Адаптация для мобильных */
@@ -289,37 +266,65 @@
     #edit-customer-wrapper .modal-content {
         width: 95%;
         max-width: 95%;
+        border-radius: 24px;
+    }
+    
+    #edit-customer-wrapper .modal-header {
+        padding: 18px 20px;
+    }
+    
+    #edit-customer-wrapper .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    #edit-customer-wrapper .edit-info-grid {
+        padding: 20px;
+        gap: 16px;
+    }
+    
+    #edit-customer-wrapper .edit-info-item {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    #edit-customer-wrapper .edit-info-label {
+        width: 100%;
+        font-size: 0.95rem;
+        padding-left: 0;
+    }
+    
+    #edit-customer-wrapper .edit-info-item i {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+    }
+    
+    #edit-customer-wrapper .edit-info-input,
+    #edit-customer-wrapper .edit-info-select {
+        width: 100%;
+        margin-left: 0;
+        padding: 12px 16px;
     }
     
     #edit-customer-wrapper .modal-footer {
         flex-direction: column-reverse;
         align-items: center;
+        padding: 20px;
+        gap: 12px;
     }
     
     #edit-customer-wrapper .btn {
         width: 100%;
         min-width: auto;
-        text-align: center;
-        justify-content: center;
+        padding: 14px 24px;
     }
-    
-    .edit-info-item {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    
-    .edit-info-label {
-        min-width: 100%;
-        padding-top: 0;
-    }
-    
-    .edit-info-item i {
-        display: none;
-    }
-    
-    .edit-info-input,
-    .edit-info-select,
-    .edit-info-textarea {
-        width: 100%;
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 380px) {
+    #edit-customer-wrapper .edit-info-item i {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
     }
 }

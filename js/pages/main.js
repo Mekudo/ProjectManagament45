@@ -4,11 +4,10 @@ let mainStatuses = {};
 let projectTasks = {};
 let currentTaskProject = null;
 let currentTaskStatuses = [];
-let currentProjectTasks = [];
+let mainProjectTasks = [];
 
 // Загрузка главной страницы
 function loadDashboard() {
-    console.log('Загрузка главной страницы');
     const userRole = localStorage.getItem('userRole');
     const userId = localStorage.getItem('userId');
     
@@ -31,7 +30,6 @@ function loadAllProjects() {
     })
     .then(response => response.json())
     .then(projects => {
-        console.log('Все проекты для главной:', projects);
         mainProjects = projects;
         loadStatusesForProjects(projects);
     })
@@ -48,7 +46,6 @@ function loadManagerProjects() {
     })
     .then(response => response.json())
     .then(projects => {
-        console.log('Проекты где пользователь руководитель:', projects);
         mainProjects = projects;
         loadStatusesForProjects(projects);
     })
@@ -56,8 +53,11 @@ function loadManagerProjects() {
 }
 
 // Загрузка проектов где пользователь исполнитель
+// Загрузка проектов где пользователь исполнитель
 function loadUserProjects(userId) {
-    fetch(`https://dmitrii-golubev.ru:7000/api/user-project/user/${userId}`, {
+    
+    // Используем тот же эндпоинт что и в tasks.js
+    fetch('https://dmitrii-golubev.ru:7000/api/project', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -65,41 +65,13 @@ function loadUserProjects(userId) {
     })
     .then(response => {
         if (!response.ok) {
-            if (response.status === 404) {
-                console.log('У пользователя нет проектов');
-                mainProjects = [];
-                loadStatusesForProjects([]);
-                return [];
-            }
             throw new Error(`Ошибка загрузки: ${response.status}`);
         }
         return response.json();
     })
-    .then(userProjects => {
-        console.log('Проекты пользователя:', userProjects);
-        
-        if (!userProjects || userProjects.length === 0) {
-            mainProjects = [];
-            loadStatusesForProjects([]);
-            return;
-        }
-        
-        const projectPromises = userProjects.map(up => 
-            fetch(`https://dmitrii-golubev.ru:7000/api/project/${up.projectId}`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            }).then(res => res.json())
-        );
-        
-        return Promise.all(projectPromises);
-    })
     .then(projects => {
-        if (projects) {
-            console.log('Детальная информация проектов:', projects);
-            mainProjects = projects;
-        }
-        loadStatusesForProjects(mainProjects);
+        mainProjects = projects;
+        loadStatusesForProjects(projects);
     })
     .catch(error => {
         console.error('Ошибка загрузки проектов пользователя:', error);
@@ -128,7 +100,6 @@ function loadStatusesForProjects(projects) {
     );
     
     Promise.all(statusPromises).then(() => {
-        console.log('Все статусы загружены:', mainStatuses);
         loadProjectsTasks(projects);
     });
 }
@@ -153,7 +124,6 @@ function loadProjectsTasks(projects) {
     );
     
     Promise.all(taskPromises).then(() => {
-        console.log('Все задачи загружены:', projectTasks);
         displayDashboard();
     });
 }
@@ -346,9 +316,8 @@ function formatDateForAPI(dateString) {
 
 // Открыть модалку создания задачи
 // Открыть модалку создания задачи
-function openCreateTaskModal(projectId) {
-    console.log('Открытие создания задачи для проекта:', projectId);
-    
+// Открыть модалку создания задачи
+function openCreateTaskModal(projectId) {    
     const project = mainProjects.find(p => p.id === projectId);
     if (!project) {
         alert('Проект не найден');
@@ -383,7 +352,14 @@ function openCreateTaskModal(projectId) {
     if (startDateField) startDateField.value = '';
     if (endDateField) endDateField.value = '';
     
-    // Устанавливаем текущего пользователя как исполнителя (только для чтения)
+    // Очищаем список поиска
+    const parentList = document.getElementById('task-parent-list');
+    if (parentList) {
+        parentList.innerHTML = '';
+        parentList.style.display = 'none';
+    }
+    
+    // Устанавливаем текущего пользователя как исполнителя
     const userId = localStorage.getItem('userId');
     const userData = localStorage.getItem('userData');
     
@@ -424,9 +400,7 @@ function openCreateTaskModal(projectId) {
 
 
 // Открыть модалку редактирования задачи
-function openEditTaskModal(taskId) {
-    console.log('Открытие редактирования задачи:', taskId);
-    
+function openEditTaskModal(taskId) {    
     fetch(`https://dmitrii-golubev.ru:7000/api/task/${taskId}`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -437,7 +411,6 @@ function openEditTaskModal(taskId) {
         return response.json();
     })
     .then(task => {
-        console.log('Данные задачи:', task);
         
         currentTaskProject = mainProjects.find(p => p.id === task.projectId);
         
@@ -524,7 +497,6 @@ function loadTaskStatuses(projectId, selectedStatusId = null) {
     })
     .then(response => response.json())
     .then(statuses => {
-        console.log('Статусы для задачи:', statuses);
         currentTaskStatuses = statuses;
         
         const statusSelect = document.getElementById('task-status-select');
@@ -543,8 +515,9 @@ function loadTaskStatuses(projectId, selectedStatusId = null) {
     .catch(error => console.error('Ошибка загрузки статусов:', error));
 }
 
-// Загрузка задач проекта для родительских задач
+// Загрузка задач проекта для родительских задач (в main.js)
 function loadProjectTasksForParent(projectId, selectedParentId = null) {
+    
     fetch(`https://dmitrii-golubev.ru:7000/api/project/${projectId}/tasks`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -552,8 +525,9 @@ function loadProjectTasksForParent(projectId, selectedParentId = null) {
     })
     .then(response => response.json())
     .then(tasks => {
-        console.log('Задачи проекта для родительских:', tasks);
-        currentProjectTasks = tasks;
+        
+        // СОХРАНЯЕМ В ГЛОБАЛЬНУЮ ПЕРЕМЕННУЮ!
+        mainProjectTasks = tasks;  
         
         const parentSelect = document.getElementById('task-parent-select');
         if (!parentSelect) return;
@@ -637,10 +611,16 @@ function searchTaskExecutor() {
 
 // Поиск родительской задачи
 function searchParentTask() {
+    
     const searchInput = document.getElementById('task-parent-search');
     const listElement = document.getElementById('task-parent-list');
     
-    if (!searchInput || !listElement) return;
+
+    
+    if (!searchInput || !listElement) {
+        console.error('Элементы поиска не найдены!');
+        return;
+    }
     
     const searchTerm = searchInput.value.toLowerCase();
     
@@ -649,9 +629,10 @@ function searchParentTask() {
     
     if (!searchTerm || searchTerm.length < 1) return;
     
-    const filtered = currentProjectTasks.filter(task => 
+    const filtered = mainProjectTasks.filter(task => 
         task.name && task.name.toLowerCase().includes(searchTerm)
     );
+    
     
     if (filtered.length === 0) {
         const div = document.createElement('div');
@@ -679,7 +660,6 @@ function searchParentTask() {
     
     listElement.style.display = 'block';
 }
-
 // Сохранение задачи
 function saveTask(event) {
     event.preventDefault();
@@ -730,7 +710,6 @@ function saveTask(event) {
         taskData.endDate = formatDateForAPI(endDate);
     }
     
-    console.log('Сохранение задачи:', taskData);
     
     const url = 'https://dmitrii-golubev.ru:7000/api/task';
     const method = taskId ? 'PUT' : 'POST';
@@ -752,9 +731,7 @@ function saveTask(event) {
         return response.json();
     })
     .then(result => {
-        console.log('Задача сохранена:', result);
         closeModal('task-modal-wrapper');
-        alert('Задача успешно сохранена');
         loadDashboard();
     })
     .catch(error => {
@@ -779,7 +756,6 @@ function deleteTask(taskId) {
         if (!response.ok) {
             throw new Error(`Ошибка ${response.status}`);
         }
-        alert('Задача успешно удалена');
         loadDashboard();
     })
     .catch(error => {

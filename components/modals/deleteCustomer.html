@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Удаление проекта</title>
+    <title>Удаление заказчика</title>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/deleteCustomer.css">
+    <script src="/project-management/ProjectManagement.Frontend/js/pages/customer.js" defer></script>
     <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
-    <link rel="stylesheet" href="/projectmanagament45/css/components/modals/deleteCustomer.css">
 </head>
 <body>
     <div class="modal-overlay" id="delete-customer-wrapper">
@@ -15,6 +16,8 @@
                 <button class="close-modal" onclick="closeModal('delete-customer-wrapper')">&times;</button>
             </div>
             
+            <input type="hidden" id="delete-customer-id">
+            
             <div class="modal-body">
                 <div class="delete-icon">🗑️</div>
                 <p class="delete-question">Вы действительно хотите удалить информацию о заказчике?</p>
@@ -22,7 +25,7 @@
             </div>
             
             <div class="modal-footer">
-                <button class="btn btn-danger" id="confirm-delete-btn" onclick="deleteCustomer()">Да, удалить</button>
+                <button class="btn btn-danger" onclick="deleteCustomer(document.getElementById('delete-customer-id').value)">Да, удалить</button>
                 <button class="btn btn-secondary" onclick="closeModal('delete-customer-wrapper')">Нет, отмена</button>
             </div>
         </div>
