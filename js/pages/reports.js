@@ -1,7 +1,3 @@
-// ========== ПОЛНОСТЬЮ ИСПРАВЛЕННЫЙ СКРИПТ ДЛЯ СТРАНИЦЫ ОТЧЕТОВ ==========
-
-console.log('🚀 СКРИПТ REPORTS.JS ЗАПУЩЕН');
-
 // Глобальные переменные
 window.reportsData = {
     projects: [],
@@ -19,32 +15,26 @@ let currentPeriod = window.currentPeriod;
 
 // Загрузка всех данных
 async function loadAllData() {
-    console.log('📡 ЗАГРУЗКА ДАННЫХ...');
     showLoading(true);
     
     try {
         const token = localStorage.getItem('token');
         if (!token) {
-            console.log('❌ Нет токена');
             showToast('Ошибка авторизации', 'error');
             return;
         }
 
         // Загружаем проекты
-        console.log('📁 Загрузка проектов...');
         const projectsRes = await fetch('https://dmitrii-golubev.ru:7000/api/project/all', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const projects = await projectsRes.json();
-        console.log('✅ Проекты загружены:', projects.length);
         
         // Загружаем задачи
-        console.log('📋 Загрузка задач...');
         const tasksRes = await fetch('https://dmitrii-golubev.ru:7000/api/task/all', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const tasks = await tasksRes.json();
-        console.log('✅ Задачи загружены:', tasks.length);
 
         // СОХРАНЯЕМ В ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
         window.reportsData = {
@@ -55,14 +45,11 @@ async function loadAllData() {
         // Также сохраняем в локальную переменную если нужно
         reportsData = window.reportsData;
         
-        console.log('✅ window.reportsData:', window.reportsData);
 
         // Обновляем все блоки
         updateAllReports();
-        showToast('Данные успешно загружены', 'success');
 
     } catch (error) {
-        console.error('❌ Ошибка:', error);
         showToast('Ошибка загрузки: ' + error.message, 'error');
     } finally {
         showLoading(false);
@@ -70,11 +57,9 @@ async function loadAllData() {
 }
 // Функция фильтрации данных по периоду
 function filterDataByPeriod() {
-    console.log('📊 Фильтрация данных по периоду:', window.currentPeriod);
     
     // Если период не задан, возвращаем все данные
     if (!window.currentPeriod || !window.currentPeriod.start || !window.currentPeriod.end) {
-        console.log('📊 Период не задан, используем все данные');
         return {
             projects: window.reportsData.projects || [],
             tasks: window.reportsData.tasks || []
@@ -84,9 +69,7 @@ function filterDataByPeriod() {
     const start = new Date(window.currentPeriod.start);
     const end = new Date(window.currentPeriod.end);
     end.setHours(23, 59, 59, 999); // Включаем весь последний день
-    
-    console.log('📊 Фильтр с:', start.toLocaleDateString(), 'по:', end.toLocaleDateString());
-    
+        
     const filteredProjects = (window.reportsData.projects || []).filter(project => {
         if (!project.createdAt) return true; // Если даты нет, оставляем
         const projectDate = new Date(project.createdAt);
@@ -99,38 +82,23 @@ function filterDataByPeriod() {
         return taskDate >= start && taskDate <= end;
     });
     
-    console.log('📊 Результат фильтрации:', {
-        projects: filteredProjects.length,
-        tasks: filteredTasks.length,
-        originalProjects: window.reportsData.projects?.length || 0,
-        originalTasks: window.reportsData.tasks?.length || 0
-    });
-    
     return {
         projects: filteredProjects,
         tasks: filteredTasks
     };
 }
 // ========== ОБНОВЛЕНИЕ ВСЕХ ОТЧЕТОВ ==========
-
 function updateAllReports() {
-    console.log('🔄 ОБНОВЛЕНИЕ ВСЕХ ОТЧЕТОВ...');
     updateKPI();
     updateProjectsStatus();
     updatePieChart();
     updateTasksPriority();
     updateMonthlyDynamics();
     updateRecentTasks();
-    
-    // Проверка через секунду
-    setTimeout(checkUpdates, 1000);
 }
-
 // ========== 1. KPI КАРТОЧКИ ==========
-
 // 1. ОБНОВЛЕНИЕ KPI
 function updateKPI() {
-    console.log('📊 Обновление KPI...');
     
     const filtered = filterDataByPeriod();
     const projects = filtered.projects;
@@ -147,8 +115,6 @@ function updateKPI() {
         return new Date(t.deadline) < now;
     }).length;
 
-    console.log('📊 KPI данные:', {totalProjects, completedProjects, activeTasks, overdueTasks});
-
     // Обновляем карточки
     const kpiCards = document.querySelectorAll('.kpi-card');
     
@@ -157,9 +123,6 @@ function updateKPI() {
         kpiCards[1].querySelector('.kpi-value').textContent = completedProjects;
         kpiCards[2].querySelector('.kpi-value').textContent = activeTasks;
         kpiCards[3].querySelector('.kpi-value').textContent = overdueTasks;
-        
-        // Если нет данных, показываем 0 (уже сделано выше)
-        console.log('✅ KPI обновлены');
     }
 }
 
@@ -167,7 +130,6 @@ function updateKPI() {
 
 // 2. СТАТУСЫ ПРОЕКТОВ
 function updateProjectsStatus() {
-    console.log('📊 Обновление статусов проектов...');
     
     const filtered = filterDataByPeriod();
     const projects = filtered.projects;
@@ -185,7 +147,6 @@ function updateProjectsStatus() {
             <div><span class="legend-color" style="background: #f39c12;"></span> В работе (${inProgress})</div>
             <div><span class="legend-color" style="background: #2ecc71;"></span> Завершено (${completed})</div>
         `;
-        console.log('✅ Легенда обновлена');
     }
 }
 
@@ -193,7 +154,6 @@ function updateProjectsStatus() {
 
 // 3. КРУГОВАЯ ДИАГРАММА
 function updatePieChart() {
-    console.log('📊 Обновление круговой диаграммы...');
     
     const filtered = filterDataByPeriod();
     const projects = filtered.projects;
@@ -206,14 +166,12 @@ function updatePieChart() {
     
     const pieContainer = document.querySelector('.pie-chart');
     if (!pieContainer) {
-        console.log('❌ Контейнер .pie-chart не найден');
         return;
     }
     
     if (total === 0) {
         // Если нет данных, показываем серый круг
         pieContainer.style.background = '#e0e0e0';
-        console.log('⚠️ Нет данных за период');
         return;
     }
     
@@ -229,13 +187,11 @@ function updatePieChart() {
         #2ecc71 ${planningPercent + inProgressPercent}% 100%
     )`;
     
-    console.log('✅ Круговая диаграмма обновлена');
 }
 
 // ========== 4. ПРИОРИТЕТЫ ЗАДАЧ ==========
 
 function updateTasksPriority() {
-    console.log('📊 Обновление приоритетов задач...');
     
     const tasks = reportsData.tasks;
     
@@ -255,7 +211,6 @@ function updateTasksPriority() {
     }).length;
 
     const total = high + medium + low;
-    console.log('📊 Приоритеты:', {high, medium, low, total});
 
     const barItems = document.querySelectorAll('.bar-item');
     
@@ -284,14 +239,12 @@ function updateTasksPriority() {
         totalElement.textContent = `Всего задач: ${total}`;
     }
     
-    console.log('✅ Приоритеты обновлены');
 }
 
 // ========== 5. МЕСЯЧНАЯ ДИНАМИКА ==========
 
 // 4. МЕСЯЧНАЯ ДИНАМИКА
 function updateMonthlyDynamics() {
-    console.log('📊 Обновление месячной динамики...');
     
     const filtered = filterDataByPeriod();
     const tasks = filtered.tasks;
@@ -326,7 +279,6 @@ function updateMonthlyDynamics() {
             bar.title = '0 задач';
             barsContainer.appendChild(bar);
         }
-        console.log('⚠️ Нет данных для графика');
         return;
     }
     
@@ -342,14 +294,12 @@ function updateMonthlyDynamics() {
         barsContainer.appendChild(bar);
     }
     
-    console.log('✅ Месячная динамика обновлена');
 }
 
 // ========== 6. ПОСЛЕДНИЕ ЗАДАЧИ ==========
 
 // 5. ПОСЛЕДНИЕ ЗАДАЧИ
 function updateRecentTasks() {
-    console.log('📊 Обновление последних задач...');
     
     const filtered = filterDataByPeriod();
     const tasks = filtered.tasks;
@@ -359,13 +309,16 @@ function updateRecentTasks() {
 
     if (tasks.length === 0) {
         taskList.innerHTML = '<div class="no-tasks" style="text-align: center; padding: 20px; color: #999;">Нет задач за выбранный период</div>';
-        console.log('⚠️ Нет задач за период');
         return;
     }
 
-    // Берем последние 5 задач
+    // Берем последние 5 задач по дате создания
     const recentTasks = [...tasks]
-        .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+        .sort((a, b) => {
+            const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+            const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+            return dateB - dateA;
+        })
         .slice(0, 5);
 
     taskList.innerHTML = '';
@@ -374,47 +327,66 @@ function updateRecentTasks() {
         const taskItem = document.createElement('div');
         taskItem.className = 'task-item';
 
+        // Определяем приоритет
         let priorityClass = 'medium';
-        const priority = String(task.priority || '').toLowerCase();
-        if (priority === 'high' || priority === 'высокий' || priority === '1') {
+        const priority = String(task.priority || task.priorityId || '').toLowerCase();
+        if (priority === 'high' || priority === 'высокий' || priority === '1' || priority === '1') {
             priorityClass = 'high';
-        } else if (priority === 'low' || priority === 'низкий' || priority === '3') {
+        } else if (priority === 'low' || priority === 'низкий' || priority === '3' || priority === '3') {
             priorityClass = 'low';
         }
 
+        // Ищем deadline в разных возможных полях
         let deadlineText = 'без срока';
+        let deadlineDate = null;
+        
+        // Проверяем разные возможные названия поля с датой
         if (task.deadline) {
-            const deadline = new Date(task.deadline);
-            deadlineText = deadline.toLocaleDateString('ru-RU', {
-                day: '2-digit',
-                month: '2-digit'
-            });
+            deadlineDate = task.deadline;
+        } else if (task.dueDate) {
+            deadlineDate = task.dueDate;
+        } else if (task.endDate) {
+            deadlineDate = task.endDate;
+        } else if (task.plannedEndDate) {
+            deadlineDate = task.plannedEndDate;
+        } else if (task.targetDate) {
+            deadlineDate = task.targetDate;
         }
+        
+        // Если нашли дату, форматируем
+        if (deadlineDate) {
+            try {
+                const deadline = new Date(deadlineDate);
+                // Проверяем, что дата валидная
+                if (!isNaN(deadline.getTime())) {
+                    const today = new Date();
+                    
+                    if (deadline.toDateString() === today.toDateString()) {
+                        deadlineText = 'сегодня';
+                    } else {
+                        deadlineText = deadline.toLocaleDateString('ru-RU', {
+                            day: '2-digit',
+                            month: '2-digit'
+                        });
+                    }
+                }
+            } catch (e) {
+            }
+        }
+
+        // Название задачи
+        const taskName = task.name || task.title || task.taskName || 'Без названия';
 
         taskItem.innerHTML = `
             <div class="task-priority ${priorityClass}"></div>
             <div class="task-info">
-                <span class="task-name">${task.name || 'Без названия'}</span>
+                <span class="task-name">${taskName}</span>
                 <span class="task-deadline">до ${deadlineText}</span>
             </div>
         `;
 
         taskList.appendChild(taskItem);
-    });
-    
-    console.log('✅ Последние задачи обновлены');
-}
-
-// ========== ПРОВЕРКА ОБНОВЛЕНИЙ ==========
-
-function checkUpdates() {
-    console.log('🔍 ПРОВЕРКА ОБНОВЛЕНИЙ:');
-    console.log('KPI карточки:', document.querySelectorAll('.kpi-card .kpi-value').length);
-    console.log('Первая KPI:', document.querySelector('.kpi-card .kpi-value')?.textContent);
-    console.log('Легенда:', document.getElementById('projects-legend')?.children.length);
-    console.log('Приоритеты:', document.querySelectorAll('.bar-fill').length);
-    console.log('Месячные бары:', document.getElementById('monthly-bars')?.children.length);
-    console.log('Список задач:', document.getElementById('recent-tasks-list')?.children.length);
+    }); 
 }
 
 // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
@@ -476,7 +448,6 @@ function showLoading(show) {
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     if (!container) {
-        console.log('Toast:', message);
         return;
     }
 
@@ -533,19 +504,14 @@ window.handleSelectPeriod = function(event) {
 
 // Способ 1: Ждем загрузку DOM
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📄 DOM загружен');
     if (document.querySelector('.reports-container')) {
-        console.log('✅ Запуск loadAllData после DOMContentLoaded');
         setTimeout(loadAllData, 500);
     }
 });
 
 // Способ 2: Запасной вариант
 setTimeout(() => {
-    console.log('⏰ Запасной запуск через 2 секунды');
     if (typeof loadAllData === 'function') {
         loadAllData();
     }
 }, 2000);
-
-console.log('🏁 Скрипт полностью загружен');

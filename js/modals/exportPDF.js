@@ -1,29 +1,37 @@
-// ========== exportPDF.js ==========
-console.log('📄 exportPDF.js загружен');
-
 // Функция открытия модального окна
 window.openExportPDFModal = function() {
-    console.log('📄 Открытие модалки экспорта PDF');
+    //console.log('📄 Открытие модалки экспорта PDF');
     const modal = document.getElementById('export-pdf-wrapper');
     if (modal) {
         modal.style.display = 'flex';
     } else {
-        console.error('❌ Модальное окно export-pdf-wrapper не найдено');
+        //console.error('❌ Модальное окно export-pdf-wrapper не найдено');
     }
 };
 
 // Функция закрытия модального окна
 window.closeModal = function(modalId) {
-    console.log(`📄 Закрытие модалки: ${modalId}`);
+   // console.log(`📄 Закрытие модалки: ${modalId}`);
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
     }
 };
 
+// Вспомогательная функция для получения даты из задачи
+function getTaskDeadline(task) {
+    // Проверяем разные возможные поля с датой
+    if (task.deadline) return task.deadline;
+    if (task.dueDate) return task.dueDate;
+    if (task.endDate) return task.endDate;
+    if (task.plannedEndDate) return task.plannedEndDate;
+    if (task.targetDate) return task.targetDate;
+    return null;
+}
+
 // Создаем временный контейнер для отчета
 function createReportHTML(settings, data) {
-    console.log('📄 Создание HTML для отчета...');
+   // console.log('📄 Создание HTML для отчета...');
     
     let projects = data.projects;
     let tasks = data.tasks;
@@ -47,7 +55,10 @@ function createReportHTML(settings, data) {
     }
     
     const now = new Date();
-    const overdueTasks = tasks.filter(t => t.deadline && t.status !== 2 && new Date(t.deadline) < now).length;
+    const overdueTasks = tasks.filter(t => {
+        const deadline = getTaskDeadline(t);
+        return deadline && t.status !== 2 && new Date(deadline) < now;
+    }).length;
     
     // Статусы проектов
     const planning = projects.filter(p => p.status === 0).length;
@@ -244,8 +255,22 @@ function createReportHTML(settings, data) {
             .slice(0, 10);
         
         sortedTasks.forEach(task => {
-            const deadline = task.deadline ? new Date(task.deadline).toLocaleDateString('ru-RU') : 'без срока';
-            html += `<div class="task-item">• ${task.name || 'Без названия'} (до ${deadline})</div>`;
+            // Получаем дату через вспомогательную функцию
+            const deadlineDate = getTaskDeadline(task);
+            let deadlineText = 'без срока';
+            
+            if (deadlineDate) {
+                try {
+                    const deadline = new Date(deadlineDate);
+                    if (!isNaN(deadline.getTime())) {
+                        deadlineText = deadline.toLocaleDateString('ru-RU');
+                    }
+                } catch (e) {
+                    console.log('Ошибка парсинга даты');
+                }
+            }
+            
+            html += `<div class="task-item">• ${task.name || 'Без названия'} (до ${deadlineText})</div>`;
         });
         html += `</div>`;
     }
@@ -262,7 +287,7 @@ function createReportHTML(settings, data) {
 // Обработчик экспорта PDF
 window.handleExportPDF = async function(event) {
     event.preventDefault();
-    console.log('📄 Начинаем экспорт PDF...');
+   // console.log('📄 Начинаем экспорт PDF...');
     
     // Собираем настройки экспорта
     const exportSettings = {
@@ -278,7 +303,7 @@ window.handleExportPDF = async function(event) {
         includeSummary: document.getElementById('export-include-summary')?.checked || false
     };
     
-    console.log('📄 Настройки экспорта:', exportSettings);
+    //console.log('📄 Настройки экспорта:', exportSettings);
     
     // Показываем индикатор загрузки
     const submitBtn = event.target.querySelector('.btn-primary');
@@ -326,7 +351,7 @@ window.handleExportPDF = async function(event) {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📄 exportPDF.js: DOM загружен');
+    //console.log('📄 exportPDF.js: DOM загружен');
     
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {

@@ -1,6 +1,3 @@
-// ========== selectPeriod.js ==========
-console.log('📅 selectPeriod.js загружен');
-
 // Функция открытия модального окна
 window.openSelectPeriodModal = function() {
     console.log('📅 Открытие модалки выбора периода');
@@ -20,7 +17,6 @@ window.openSelectPeriodModal = function() {
 
 // Функция закрытия модального окна
 window.closeModal = function(modalId) {
-    console.log(`📅 Закрытие модалки: ${modalId}`);
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
@@ -52,7 +48,6 @@ window.toggleCustomPeriod = function() {
 
 // Быстрый выбор периода
 window.setQuickPeriod = function(period) {
-    console.log('📅 Быстрый выбор:', period);
     
     const today = new Date();
     let startDate = new Date();
@@ -90,7 +85,6 @@ window.setQuickPeriod = function(period) {
 // Обработчик выбора периода
 window.handleSelectPeriod = function(event) {
     event.preventDefault();
-    console.log('📅 Применение периода...');
     
     const submitBtn = event.target.querySelector('.btn-primary');
     const originalText = submitBtn.innerHTML;
@@ -134,15 +128,12 @@ window.handleSelectPeriod = function(event) {
             throw new Error('Дата начала не может быть позже даты окончания');
         }
         
-        console.log('📅 Выбранный период:', { start: startDate, end: endDate });
-        
         // Сохраняем период
         if (window.currentPeriod) {
             window.currentPeriod = {
                 start: startDate,
                 end: endDate
             };
-            console.log('📅 currentPeriod обновлен:', window.currentPeriod);
         }
         
         // Загружаем данные с новым периодом
@@ -175,7 +166,6 @@ window.handleSelectPeriod = function(event) {
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📅 selectPeriod.js: DOM загружен');
     
     // Заполняем список годов
     const yearSelect = document.getElementById('select-year');
