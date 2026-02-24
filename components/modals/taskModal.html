@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление задачей</title>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/task.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="modal-overlay" id="task-modal-wrapper">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2 id="task-modal-title"><i class="fas fa-tasks"></i> Создание задачи</h2>
+                <button class="close-modal" onclick="closeModal('task-modal-wrapper')">&times;</button>
+            </div>
+            
+            <form id="task-form" onsubmit="saveTask(event)">
+                <input type="hidden" id="task-id">
+                <input type="hidden" id="task-project-id">
+                <input type="hidden" id="task-author-id">
+
+                <div class="form-group">
+                    <label>Название задачи <span class="required">*</span></label>
+                    <input type="text" id="task-name" placeholder="Введите название задачи" required maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="task-description" placeholder="Введите описание задачи" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <!-- Вместо блока с поиском исполнителя добавьте: -->
+                    <div class="form-group">
+                        <label>Исполнитель <span class="required">*</span></label>
+                        <input type="text" 
+                            id="task-executor" 
+                            class="form-control" 
+                            readonly 
+                            disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Статус <span class="required">*</span></label>
+                        <select id="task-status-select" class="form-control" required>
+                            <option value="">Выберите статус</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Родительская задача</label>
+                        <div class="search-container">
+                            <input type="text" 
+                                   id="task-parent-search" 
+                                   class="search-input" 
+                                   placeholder="Поиск задачи..." 
+                                   autocomplete="off"
+                                   oninput="searchParentTask()">
+                            <div id="task-parent-list" class="search-list"></div>
+                            <select id="task-parent-select" style="display: none;">
+                                <option value="">Без родительской задачи</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата начала</label>
+                        <input type="date" id="task-start-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата окончания</label>
+                        <input type="date" id="task-end-date" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit btn-primary">
+                        <i class="fas fa-save"></i> Сохранить
+                    </button>
+                    <button type="button" class="btn-submit btn-secondary" onclick="closeModal('task-modal-wrapper')">
+                        <i class="fas fa-times"></i> Отмена
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

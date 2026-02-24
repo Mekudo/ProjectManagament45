@@ -12,16 +12,15 @@
     align-items: center;
 }
 
-#edit-project-wrapper .modal-content {
+#customer-wrapper .modal-content {
     background-color: white;
     border-radius: 16px;
     width: 90%;
     max-width: 650px;
     max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
     animation: modalFadeIn 0.3s ease;
-    display: flex;
-    flex-direction: column; /* Важно! Выстраиваем дочерние элементы в колонку */
 }
 
 @keyframes modalFadeIn {
@@ -35,28 +34,22 @@
     }
 }
 
-#edit-project-wrapper .modal-header {
+#customer-wrapper .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
     border-bottom: 1px solid #eaeef2;
-    background-color: white; /* Фон, чтобы контент не просвечивал */
-    border-radius: 16px 16px 0 0; /* Скругляем только верхние углы */
-    flex-shrink: 0; /* Запрещаем сжиматься */
-    position: sticky; /* Делаем липким */
-    top: 0; /* Прикрепляем к верху */
-    z-index: 10; /* Чтобы был поверх контента при скролле */
 }
 
-#edit-project-wrapper .modal-header h2 {
+#customer-wrapper .modal-header h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
     color: #1a2634;
 }
 
-#edit-project-wrapper .close-modal {
+#customer-wrapper .close-modal {
     background: none;
     border: none;
     font-size: 1.8rem;
@@ -72,15 +65,13 @@
     transition: all 0.2s;
 }
 
-#edit-project-wrapper .close-modal:hover {
+#customer-wrapper .close-modal:hover {
     background-color: #f1f5f9;
     color: #1e2a38;
 }
 
 #edit-project-form {
     padding: 24px;
-    overflow-y: auto; /* Добавляем скролл для формы */
-    flex-grow: 1; /* Форма занимает все доступное место */
 }
 
 /* Секция названия проекта */
@@ -176,11 +167,11 @@
 }
 
 /* Примечания */
-#edit-project-wrapper .form-group {
+#edit-customer-wrapper .form-group {
     margin-bottom: 24px;
 }
 
-#edit-project-wrapper .form-group label {
+#edit-customer-wrapper .form-group label {
     display: block;
     margin-bottom: 10px;
     font-weight: 500;
@@ -188,7 +179,7 @@
     font-size: 0.95rem;
 }
 
-#edit-project-wrapper .form-group textarea {
+#edit-customer-wrapper .form-group textarea {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid #d0d9e3;
@@ -200,28 +191,22 @@
     box-sizing: border-box;
 }
 
-#edit-project-wrapper .form-group textarea:focus {
+#edit-customer-wrapper .form-group textarea:focus {
     outline: none;
     border-color: #2c6b9e;
     box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
 }
 
 /* Футер с кнопками - ПО ЦЕНТРУ */
-#edit-project-wrapper .modal-footer {
+#customer-wrapper .modal-footer {
     display: flex;
     justify-content: center;
     gap: 16px;
-    padding: 20px 24px;
+    padding-top: 20px;
     border-top: 1px solid #eaeef2;
-    background-color: white; /* Фон, чтобы контент не просвечивал */
-    border-radius: 0 0 16px 16px; /* Скругляем только нижние углы */
-    flex-shrink: 0; /* Запрещаем сжиматься */
-    position: sticky; /* Делаем липким */
-    bottom: 0; /* Прикрепляем к низу */
-    z-index: 10; /* Чтобы был поверх контента при скролле */
 }
 
-#edit-project-wrapper .btn {
+#customer-wrapper .btn {
     padding: 12px 28px;
     border-radius: 40px;
     font-size: 1rem;
@@ -230,28 +215,28 @@
     transition: all 0.2s ease;
     border: none;
     min-width: 160px;
-    text-align: center;
-    display: inline-block;
+    text-align: center;  /* Добавлено! Текст по центру кнопки */
+    display: inline-block; /* Для уверенности */
 }
 
-#edit-project-wrapper .btn-secondary {
+#customer-wrapper .btn-secondary {
     background-color: #f1f5f9;
     color: #33475b;
     border: 1px solid #dde3ea;
 }
 
-#edit-project-wrapper .btn-secondary:hover {
+#customer-wrapper .btn-secondary:hover {
     background-color: #e4eaf2;
     border-color: #cbd5e1;
 }
 
-#edit-project-wrapper .btn-primary {
+#customer-wrapperr .btn-primary {
     background-color: #2c6b9e;
     color: white;
     box-shadow: 0 4px 8px rgba(44, 107, 158, 0.2);
 }
 
-#edit-project-wrapper .btn-primary:hover {
+#customer-wrapper .btn-primary:hover {
     background-color: #1f4f7a;
     transform: translateY(-1px);
     box-shadow: 0 6px 12px rgba(44, 107, 158, 0.25);
@@ -259,20 +244,20 @@
 
 /* Адаптация для мобильных */
 @media (max-width: 600px) {
-    #edit-project-wrapper .modal-content {
+    #customer-wrapper .modal-content {
         width: 95%;
         max-width: 95%;
     }
     
-    #edit-project-wrapper .modal-footer {
+    #customer-wrapper .modal-footer {
         flex-direction: column-reverse;
         align-items: center;
     }
     
-    #edit-project-wrapper .btn {
+    #customer-wrapper .btn {
         width: 100%;
         min-width: auto;
-        text-align: center;
+        text-align: center;  /* И здесь тоже */
     }
     
     .edit-info-item {
@@ -282,92 +267,4 @@
     .edit-info-label {
         min-width: 100px;
     }
-}
-
-/* Стили для поисковых селектов в модалке редактирования */
-.searchable-select {
-    border: 1px solid #d0d9e3;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: white;
-}
-
-.search-input {
-    width: 100%;
-    padding: 10px 12px;
-    border: none !important;
-    border-bottom: 1px solid #eaeef2 !important;
-    border-radius: 8px 8px 0 0 !important;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-}
-
-.search-input:focus {
-    border-bottom-color: #2c6b9e !important;
-    outline: none;
-}
-
-.select-with-search {
-    width: 100%;
-    padding: 8px;
-    border: none !important;
-    border-radius: 0 0 8px 8px !important;
-    min-height: 100px;
-    max-height: 150px;
-    font-size: 0.9rem;
-}
-
-.select-with-search option {
-    padding: 8px 12px;
-}
-
-.select-with-search option:hover {
-    background-color: #f1f5f9;
-}
-
-.select-with-search option:checked {
-    background-color: #2c6b9e;
-    color: white;
-}
-
-/* Блок фактической даты завершения */
-#actual-end-date-group {
-    margin-top: 15px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #2c6b9e;
-}
-
-#actual-end-date-group p {
-    margin: 0 0 8px 0;
-    font-weight: 500;
-    color: #1e2a38;
-    font-size: 0.95rem;
-}
-
-#actual-end-date-group input[type="date"] {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid #d0d9e3;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    margin-bottom: 5px;
-    box-sizing: border-box;
-}
-
-#actual-end-date-group input[type="date"]:focus {
-    outline: none;
-    border-color: #2c6b9e;
-    box-shadow: 0 0 0 3px rgba(44, 107, 158, 0.1);
-}
-
-#actual-end-date-group .form-text {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin-top: 4px;
-}
-
-.text-muted {
-    color: #6c757d;
 }

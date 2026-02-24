@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer</title>
+
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/customer.css">
+
+    <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+</head>
+<body>
+    <div class="modal-overlay" id="customer-wrapper">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Создание заказчика</h2>
+                <button class="close-modal" data-close="customer" onclick="closeModal('customer-wrapper')">&times;</button>
+            </div>
+            
+            <form id="customer">
+                <div class="form-group">
+                    <p>Наименование организации</p>
+                    <input type="text" id="nameInput" placeholder="" required>
+                </div>
+
+                <div class="form-group">
+                    <p>ФИО ответственного лица</p>
+                    <input type="text" id="fioInput" placeholder="Иванов Иван Иванович" required>
+                </div>
+                
+                <div class="form-group">
+                    <p>ИНН</p>
+                    <input type="text" id="innInput" placeholder="3731000000" required>
+                </div>
+                <div class="form-group">
+                    <p>ОГРН</p>
+                    <input type="text" id="innInput" placeholder="1027700000000" required>
+                </div>
+                <div class="form-group">
+                    <p>Номер телефона</p>
+                    <input type="text" id="innInput" placeholder="+7 (999) 999-99-99" required>
+                </div>
+                <div class="form-group">
+                    <p>Электронная почта</p>
+                    <input type="text" id="innInput" placeholder="primer@pri.com" required>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <p class="fas fa-plus">Добавить заказчика</p> 
+                </button>
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

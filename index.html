@@ -10,19 +10,10 @@
     <link rel="stylesheet" href="./css/components/pages/adminPages.css">
     <link rel="stylesheet" href="./css/components/pages/projects.css">
     <link rel="stylesheet" href="./css/components/pages/tasks.css">
+    <link rel="stylesheet" href="./css/components/pages/customers.css">
     <link rel="stylesheet" href="./css/components/modals/editUser.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/components/header.css">
-    <link rel="stylesheet" href="./css/components/sidebar.css">
-    <link rel="stylesheet" href="./css/components/modals/signIn.css">
-    <link rel="stylesheet" href="./css/components/modals/signUp.css">
-    <link rel="stylesheet" href="./css/components/modals/task.css">
-    <link rel="stylesheet" href="./css/components/modals/project.css">
-    <link rel="stylesheet" href="./css/components/modals/editProject.css">
-    <link rel="stylesheet" href="./css/components/modals/deleteProject.css">
-    <link rel="stylesheet" href="./css/components/modals/editUser.css">
-    <link rel="stylesheet" href="./css/components/pages/projects.css">
-    <link rel="stylesheet" href="./css/components/pages/tasks.css">
+    <link rel="stylesheet" href="./css/components/modals/editCustomer.css">
+    <link rel="stylesheet" href="./css/components/modals/deleteCustomer.css">
     <script src="./js/componentsLoad.js" defer></script>
     <script src="./js/modals/authModals.js" defer></script>
     <script src="./js/auth/authFlow.js" defer></script>
@@ -30,6 +21,9 @@
     <script src="./js/auth/signIn.js"></script>
     <script src="./js/auth/signUp.js"></script>
     <script src="./js/pages/adminLoad.js"></script>
+    <script src="./js/pages/project.js"></script>
+    <script src="./js/pages/main.js"></script>
+
 
 </head>
     <body>
@@ -39,35 +33,21 @@
             <div id="sidebar"></div>
             <div id="signup"></div>
             <div id="task"></div>
+            <div id="customer"></div>
             <div id="createProject"></div>
             <div id="deleteProject"></div>
             <div id="editProject"></div> 
             <div id="editUser"></div>
+            <div id="editCustomer"></div>
+            <div id="deleteCustomer"></div>
+            <div id="projectMembers"></div>
+            <div id="projectStatuses"></div>
+            <div id="taskModal"></div>
             <!-- Основной контент -->
             <div class="main-content">
                 <div id="header"></div>
                 <!-- Страница Главная -->
                 <div id="dashboard" class="page active">
-
-                    <!-- Статистика проектов -->
-                    <div class="project-stats">
-                        <div class="stat-card">
-                            <h3>Всего проектов</h3>
-                            <div class="value">12</div>
-                        </div>
-                        <div class="stat-card in-progress">
-                            <h3>В работе</h3>
-                            <div class="value">5</div>
-                        </div>
-                        <div class="stat-card completed">
-                            <h3>Завершено</h3>
-                            <div class="value">7</div>
-                        </div>
-                        <div class="stat-card overdue">
-                            <h3>Просрочено</h3>
-                            <div class="value">3</div>
-                        </div>
-                    </div>
 
                     <!-- Доска задач -->
                     <div class="board-container">
@@ -120,6 +100,7 @@
                 <div id="tasks" class="page"></div>
                 <div id="projects" class="page"></div>
                 <div id="admin" class="page"></div>
+                <div id="customers" class="page"></div>
         </div>
     </body>
 </html>

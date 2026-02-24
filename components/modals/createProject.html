@@ -6,49 +6,81 @@
     <title>Создание проекта</title>
     <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/project.css">
     <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <script src="/project-management/ProjectManagement.Frontend/js/admin/projectsLoad.js" defer></script>
 </head>
 <body>
+    <!-- Модалка создания проекта -->
     <div class="modal-overlay" id="create-project-wrapper">
-        <div class="modal-content">
+        <div class="modal-content modal-lg">
             <div class="modal-header">
-                <h2>Новый проект</h2>
+                <h2>Создание нового проекта</h2>
                 <button type="button" class="close-modal" onclick="closeModal('create-project-wrapper')">&times;</button>
             </div>
             
-            <form id="create-project-form">
+            <form id="create-project-form" onsubmit="createProject(event)">
                 <div class="form-group">
-                    <p>Название проекта</p>
+                    <p>Название проекта *</p>
                     <input type="text" id="projectNameInput" placeholder="Введите название проекта" required>
-                </div>
-
-                <div class="form-group">
-                    <p>Заказчик</p>
-                    <input type="text" id="customerInput" placeholder="НЛМК">
-                </div>
-
-                <div class="form-group">
-                    <p>Бюджет</p>
-                    <input type="text" id="budgetInput" placeholder="65 000">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <p>Дата начала</p>
-                        <input type="date" id="startDateInput">
+                        <p>Номер проекта</p>
+                        <input type="text" id="projectNumInput" placeholder="777">
                     </div>
                     <div class="form-group">
-                        <p>Дата завершения (план)</p>
-                        <input type="date" id="endDateInput">
+                        <p>Бюджет (₽)</p>
+                        <input type="number" id="budgetInput" placeholder="2000000" min="0">
+                    </div>
+                </div>
+
+                <!-- Блок с поиском заказчика -->
+                <div class="form-group">
+                    <p>Заказчик *</p>
+                    <div class="search-container">
+                        <input type="text" 
+                               id="customerSearchInput" 
+                               class="search-input" 
+                               placeholder="Поиск заказчика..." 
+                               autocomplete="off"
+                               oninput="searchCustomer()">
+                        <div id="customerSearchList" class="search-list"></div>
+                        <select id="customerSelect" style="display: none;">
+                            <option value="">Выберите заказчика</option>
+                        </select>
+                    </div>
+                    <small class="form-text">Начните вводить имя</small>
+                </div>
+
+                <!-- Руководитель проекта (автоматически) -->
+                <div class="form-group">
+                    <p>Руководитель проекта</p>
+                    <input type="text" 
+                           id="projectManagerDisplay" 
+                           class="form-control" 
+                           readonly 
+                           disabled>
+                    <input type="hidden" id="projectManagerSelect">
+                    <small class="form-text text-muted">Руководителем автоматически назначен создатель проекта</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <p>Дата начала *</p>
+                        <input type="date" id="startDateInput" required>
+                    </div>
+                    <div class="form-group">
+                        <p>Дата завершения (план) *</p>
+                        <input type="date" id="planningEndDateInput" required>
                     </div>
                 </div>
                 
-                <button type="submit" class="btn-submit">
-                    Создать проект
-                </button>
-                
-                <div style="text-align: center; margin-top: 15px;">
-                    <button type="button" class="btn-submit" id="cancelModalBtn" onclick="closeModal('create-project-wrapper')">
-                        Отмена
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-save"></i> Создать проект
+                    </button>
+                    <button type="button" class="btn-submit btn-secondary" onclick="closeModal('create-project-wrapper')">
+                        <i class="fas fa-times"></i> Отмена
                     </button>
                 </div>
             </form>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление исполнителями проекта</title>
+    <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/projectMembers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="modal-overlay" id="project-members-wrapper">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> Управление исполнителями</h2>
+                <button class="close-modal" onclick="closeModal('project-members-wrapper')">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Информация о проекте -->
+                <div class="project-info-header">
+                    <h3 id="project-name-display"></h3>
+                    <p id="project-num-display"></p>
+                </div>
+
+                <!-- Две колонки: доступные и текущие исполнители -->
+                <div class="members-container">
+                    <!-- Колонка доступных пользователей -->
+                    <div class="members-column">
+                        <div class="column-header">
+                            <h4>Доступные исполнители</h4>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" 
+                                       id="available-users-search" 
+                                       placeholder="Поиск..." 
+                                       oninput="searchAvailableUsers()">
+                            </div>
+                        </div>
+                        <div class="members-list" id="available-users-list">
+                            <div class="loading-members">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Загрузка...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Колонка текущих исполнителей проекта -->
+                    <div class="members-column">
+                        <div class="column-header">
+                            <h4>Исполнители проекта</h4>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" 
+                                       id="project-users-search" 
+                                       placeholder="Поиск..." 
+                                       oninput="searchProjectUsers()">
+                            </div>
+                        </div>
+                        <div class="members-list" id="project-users-list">
+                            <div class="loading-members">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Загрузка...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('project-members-wrapper')">
+                    <i class="fas fa-times"></i> Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

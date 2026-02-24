@@ -11,7 +11,14 @@ const COMPONENTS = {
     deleteProject: 'components/modals/deleteProject.html',
     editProject: 'components/modals/editProject.html',
     task: 'components/modals/Task.html',
-    editUser: 'components/modals/editUser.html'
+    editUser: 'components/modals/editUser.html',
+    customers: 'components/pages/customers.html',
+    customer: 'components/modals/customer.html',
+    editCustomer: 'components/modals/editCustomer.html',
+    deleteCustomer: 'components/modals/deleteCustomer.html',
+    projectMembers: 'components/modals/projectMembers.html',
+    projectStatuses: 'components/modals/projectMembers.html',
+    taskModal: 'components/modals/taskModal.html'
 };
 
 // Функция загрузки компонента
@@ -33,6 +40,7 @@ async function loadComponent(componentId, componentPath) {
 }
 
 // Функция переключения страниц
+// Функция переключения страниц
 function initPageSwitcher() {
     // Маппинг названий страниц
     const pageTitles = {
@@ -40,7 +48,7 @@ function initPageSwitcher() {
         'admin': 'Администрирование',
         'projects': 'Управление проектами',
         'tasks': 'Задачи',
-        'users': 'Исполнители',
+        'customers': 'Заказчики',
         'reports': 'Отчеты'
     };
     
@@ -76,6 +84,11 @@ function initPageSwitcher() {
             targetPage.style.display = 'block';
             targetPage.classList.add('active');
             console.log('Страница показана:', pageId);
+            
+            // Если это главная страница - загружаем данные
+            if (pageId === 'dashboard' && typeof loadDashboard === 'function') {
+                loadDashboard();
+            }
         } else {
             console.log('Страница не найдена:', pageId);
         }
@@ -104,8 +117,17 @@ document.addEventListener('DOMContentLoaded', function() {
         loadPromises.push(loadComponent('header', 'components/header.html'));
     }
 
+     
+    if (document.getElementById('taskModal')) {
+    loadPromises.push(loadComponent('taskModal', 'components/modals/taskModal.html'));
+    }
+    
     if (document.getElementById('createProject')) {
     loadPromises.push(loadComponent('createProject', 'components/modals/createProject.html'));
+    }
+
+    if (document.getElementById('projectStatuses')) {
+    loadPromises.push(loadComponent('projectStatuses', 'components/modals/projectStatuses.html'));
     }
 
     if (document.getElementById('deleteProject')) {
@@ -117,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (document.getElementById('editUser')) {
-    loadPromises.push(loadComponent('editProject', 'components/modals/editUser.html'));
+    loadPromises.push(loadComponent('editUser', 'components/modals/editUser.html'));
     }
 
     if (document.getElementById('signin')) {
@@ -126,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (document.getElementById('signup')) {
         loadPromises.push(loadComponent('signup', 'components/modals/signUp.html'));
+    }
+
+    if (document.getElementById('projectMembers')) {
+        loadPromises.push(loadComponent('projectMembers', 'components/modals/projectMembers.html'));
     }
 
     if (document.getElementById('admin')) {
@@ -140,15 +166,35 @@ document.addEventListener('DOMContentLoaded', function() {
         loadPromises.push(loadComponent('tasks', 'components/pages/tasks.html'));
     }
 
-    if (document.getElementById('task')){
-        loadPromises.push(loadComponent('task', 'components/modals/task.html'))
+    if (document.getElementById('customers')) {
+        loadPromises.push(loadComponent('customers', 'components/pages/customers.html'));
+    }
+
+    if (document.getElementById('customer')){
+        loadPromises.push(loadComponent('customer', 'components/modals/customer.html'))
+    }
+
+    if (document.getElementById('editCustomer')) {
+    loadPromises.push(loadComponent('editCustomer', 'components/modals/editCustomer.html'));
+    }
+
+    if (document.getElementById('deleteCustomer')) {
+    loadPromises.push(loadComponent('deleteCustomer', 'components/modals/deleteCustomer.html'));
     }
     Promise.all(loadPromises).then(() => {
         console.log('Все компоненты загружены');
         
         setTimeout(() => {
             document.body.classList.add('page-loaded');
-            initPageSwitcher(); // Инициализируем переключатель
+            initPageSwitcher();
+            
+            // Загружаем главную страницу только если пользователь авторизован
+            const isAuth = !!localStorage.getItem('token');
+            if (isAuth && document.getElementById('dashboard') && document.getElementById('dashboard').classList.contains('active')) {
+                if (typeof loadDashboard === 'function') {
+                    loadDashboard();
+                }
+            }
             
             if (typeof initModalSwitchers === 'function') {
                 initModalSwitchers();

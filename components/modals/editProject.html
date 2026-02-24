@@ -5,70 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование проекта</title>
     <script src="/project-management/ProjectManagement.Frontend/js/auth/authUI.js" defer></script>
+    <script src="/project-management/ProjectManagement.Frontend/js/admin/projectsLoad.js" defer></script>
     <link rel="stylesheet" href="/project-management/ProjectManagement.Frontend/css/components/modals/editProject.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="modal-overlay" id="edit-project-wrapper">
-        <div class="modal-content">
+        <div class="modal-content modal-lg">
             <div class="modal-header">
                 <h2>✏️ Редактирование проекта</h2>
                 <button class="close-modal" onclick="closeModal('edit-project-wrapper')">&times;</button>
             </div>
             
-            <form id="edit-project-form">
+            <form id="edit-project-form" onsubmit="updateProject(event)">
                 <!-- ID проекта (скрытое поле) -->
                 <input type="hidden" id="edit-project-id" name="projectId">
                 
-                <!-- Название проекта (отдельно, как в карточке) -->
-                <div class="edit-title-section">
-                    <i class="fas fa-project-diagram"></i>
-                    <input type="text" id="edit-project-name" class="edit-title-input" value="Лабораторная информационная система" required>
-                </div>
-
-                <!-- Информация о проекте в стиле project-info -->
-                <div class="edit-info-grid">
-                    <!-- Заказчик -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-building"></i>
-                        <span class="edit-info-label">Заказчик:</span>
-                        <input type="text" id="edit-customer" class="edit-info-input" value="НЛМК">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <p>Название проекта <span style="color: red;">*</span></p>
+                        <input type="text" id="edit-project-name" class="edit-title-input" placeholder="Введите название проекта" required>
                     </div>
                     
-                    <!-- Руководитель -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-user-tie"></i>
-                        <span class="edit-info-label">Руководитель:</span>
-                        <input type="text" id="edit-manager" class="edit-info-input" value="Иванов А.С.">
-                    </div>
-                    
-                    <!-- Бюджет -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-wallet"></i>
-                        <span class="edit-info-label">Бюджет:</span>
-                        <input type="text" id="edit-budget" class="edit-info-input" value="5 200 000 ₽">
-                    </div>
-                    
-                    <!-- Дата начала -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span class="edit-info-label">Начало:</span>
-                        <input type="date" id="edit-start-date" class="edit-info-input" value="2024-08-15">
-                    </div>
-                    
-                    <!-- Дата завершения -->
-                    <div class="edit-info-item">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="edit-info-label">Завершение:</span>
-                        <input type="date" id="edit-end-date" class="edit-info-input" value="2024-12-12">
+                    <div class="form-group" style="flex: 1;">
+                        <p>Статус проекта</p>
+                        <select id="edit-project-status" class="edit-info-select">
+                            <option value="0">Планирование</option>
+                            <option value="1">В работе</option>
+                            <option value="2">Завершен</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-project-wrapper')">Отмена</button>
+                <!-- Номер и бюджет -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <p>Номер проекта</p>
+                        <input type="text" id="edit-project-num" class="form-control" placeholder="777">
+                    </div>
+                    <div class="form-group">
+                        <p>Бюджет (₽)</p>
+                        <input type="number" id="edit-budget" class="form-control" placeholder="2000000" min="0">
+                    </div>
+                </div>
+
+                <!-- Заказчик с поиском (как в создании) -->
+                <div class="form-group">
+                    <p>Заказчик <span style="color: red;">*</span></p>
+                    <div class="search-container">
+                        <input type="text" 
+                               id="edit-customer-search" 
+                               class="search-input" 
+                               placeholder="Поиск заказчика..." 
+                               autocomplete="off"
+                               oninput="searchEditCustomer()">
+                        <div id="edit-customer-search-list" class="search-list"></div>
+                        <select id="edit-customer-select" style="display: none;">
+                            <option value="">Выберите заказчика</option>
+                        </select>
+                    </div>
+                    <small class="form-text">Начните вводить имя заказчика</small>
+                </div>
+
+                <!-- Руководитель с поиском -->
+                <div class="form-group">
+                    <p>Руководитель проекта <span style="color: red;">*</span></p>
+                    <div class="search-container">
+                        <input type="text" 
+                               id="edit-manager-search" 
+                               class="search-input" 
+                               placeholder="Поиск руководителя..." 
+                               autocomplete="off"
+                               oninput="searchEditManager()">
+                        <div id="edit-manager-search-list" class="search-list"></div>
+                        <select id="edit-project-manager-select" style="display: none;">
+                            <option value="">Выберите руководителя</option>
+                        </select>
+                    </div>
+                    <small class="form-text">Начните вводить имя руководителя</small>
+                </div>
+
+                <!-- Даты -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <p>Дата начала <span style="color: red;">*</span></p>
+                        <input type="date" id="edit-start-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <p>Дата завершения (план) <span style="color: red;">*</span></p>
+                        <input type="date" id="edit-planning-end-date" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Фактическая дата завершения (только для статусов "Завершен" и "Отменен") -->
+                <div class="form-group" id="actual-end-date-group" style="display: none;">
+                    <p>Фактическая дата завершения</p>
+                    <input type="date" id="edit-end-date" class="form-control">
+                    <small class="form-text text-muted">Указывается при завершении или отмене проекта</small>
+                </div>
+                
+                <!-- Кнопки -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                    <button type="button" class="btn-submit btn-secondary" onclick="closeModal('edit-project-wrapper')">
+                        <i class="fas fa-times"></i> Отмена
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+
 </body>
 </html>

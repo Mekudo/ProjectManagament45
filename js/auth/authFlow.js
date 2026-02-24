@@ -58,6 +58,13 @@ class AuthFlow {
             closeModal('sign-in-wrapper');
             closeModal('sign-up-wrapper');
         }
+
+        // Загружаем главную страницу
+        setTimeout(() => {
+            if (document.getElementById('dashboard') && typeof loadDashboard === 'function') {
+                loadDashboard();
+            }
+        }, 100);
     }
 }
 
@@ -80,10 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         alert('Вы вышли из системы');
         
+        window.location.reload();
+        
         // Показываем модалку
         if (window.authFlow) {
             window.authFlow.showAuthModal();
         }
+
+        
     };
 
     window.authFlow = new AuthFlow();

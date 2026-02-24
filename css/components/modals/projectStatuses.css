@@ -1,0 +1,341 @@
+/* Модалка управления статусами */
+#project-statuses-wrapper .modal-content {
+    max-width: 700px;
+    width: 95%;
+}
+
+#project-statuses-wrapper .modal-body {
+    padding: 20px;
+}
+
+/* Информация о проекте */
+.project-info-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #3498db;
+}
+
+.project-info-header h3 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.project-info-header p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Форма добавления */
+.add-status-form {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.add-status-form h4 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.add-status-form h4 i {
+    color: #27ae60;
+    margin-right: 8px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+.btn-add-status {
+    padding: 10px 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.btn-add-status:hover {
+    background: #229954;
+}
+
+.btn-add-status:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Список статусов */
+.statuses-list-header {
+    margin-bottom: 15px;
+}
+
+.statuses-list-header h4 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.statuses-list-header h4 i {
+    color: #3498db;
+    margin-right: 8px;
+}
+
+.text-muted {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+}
+
+.statuses-list {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Элемент статуса */
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f3f5;
+    transition: background 0.2s;
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+.status-item:hover {
+    background: #f8f9fa;
+}
+
+.status-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.status-order {
+    width: 40px;
+    height: 40px;
+    background: #3498db;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.status-details {
+    flex: 1;
+}
+
+.status-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.status-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.8rem;
+}
+
+.status-id {
+    color: #7f8c8d;
+    font-family: monospace;
+}
+
+.status-tasks-count {
+    color: #e67e22;
+    background: #fff3e0;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.status-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-status {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: white;
+}
+
+.btn-edit-status {
+    color: #3498db;
+    border: 1px solid #bdd8f0;
+}
+
+.btn-edit-status:hover {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.btn-delete-status {
+    color: #e74c3c;
+    border: 1px solid #fadbd8;
+}
+
+.btn-delete-status:hover:not(:disabled) {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+.btn-delete-status:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f1f3f5;
+}
+
+.btn-save-status {
+    color: #27ae60;
+    border: 1px solid #a9dfbf;
+}
+
+.btn-save-status:hover {
+    background: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+
+.btn-cancel-status {
+    color: #7f8c8d;
+    border: 1px solid #d0d3d4;
+}
+
+.btn-cancel-status:hover {
+    background: #7f8c8d;
+    color: white;
+    border-color: #7f8c8d;
+}
+
+/* Режим редактирования */
+.status-item.edit-mode .status-info {
+    display: none;
+}
+
+.status-item.edit-mode .status-edit-form {
+    display: flex;
+}
+
+.status-edit-form {
+    display: none;
+    flex: 1;
+    gap: 10px;
+    align-items: center;
+}
+
+.status-edit-form input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.status-edit-form input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/* Состояния загрузки */
+.loading-statuses {
+    padding: 40px;
+    text-align: center;
+    color: #95a5a6;
+}
+
+.loading-statuses i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #bdc3c7;
+}
+
+.empty-statuses {
+    padding: 40px;
+    text-align: center;
+    color: #95a5a6;
+}
+
+.empty-statuses i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #bdc3c7;
+}
+
+/* Адаптация */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .status-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .status-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .status-edit-form {
+        flex-direction: column;
+    }
+}

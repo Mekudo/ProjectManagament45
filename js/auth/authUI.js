@@ -147,12 +147,49 @@ class AuthUI {
             this.userRole.textContent = userData.role || 'Пользователь';
         }
 
-        // Показываем пункт меню "Администрирование" только для администратора (role = 0)
         const adminMenuItem = document.querySelector('.nav-menu li[data-page="admin"]');
         if (adminMenuItem) {
             const isAdmin = userData && (userData.roleNumber === 0 || userData.role === 'Администратор');
             adminMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
         }
+        // Показываем пункт меню "Заказчики" только для админа (0) и руководителя проекта (1)
+               const customersMenuItem = document.querySelector('.nav-menu li[data-page="customers"]');
+        if (customersMenuItem) {
+            const hasAccess = userData && (
+                userData.roleNumber === 0 || 
+                userData.roleNumber === 1 || 
+                userData.role === 'Администратор' || 
+                userData.role === 'Руководитель проекта'
+            );
+            customersMenuItem.style.display = isAuth && hasAccess ? 'flex' : 'none';
+        }
+
+        this.hideDeleteButtons();
+        
+
+        const projectMenuItem = document.querySelector('.nav-menu li[data-page="projects"]');
+        if (projectMenuItem) {
+            const isAdmin = userData && (userData.roleNumber === 0 || userData.roleNumber === 1);
+            projectMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
+        }
+
+        const taskMenuItem = document.querySelector('.nav-menu li[data-page="tasks"]');
+        if (taskMenuItem) {
+            const isAdmin = userData && (userData.roleNumber === 0 || userData.roleNumber === 1);
+            taskMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
+        }
+
+        const usersMenuItem = document.querySelector('.nav-menu li[data-page="users"]');
+        if (usersMenuItem) {
+            const isAdmin = userData && (userData.roleNumber === 0 || userData.roleNumber === 1);
+            usersMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
+        }
+
+        const reportsMenuItem = document.querySelector('.nav-menu li[data-page="reports"]');
+        if (reportsMenuItem) {
+            const isAdmin = userData && (userData.roleNumber === 0 || userData.roleNumber === 1);
+            reportsMenuItem.style.display = isAuth && isAdmin ? 'flex' : 'none';
+        }      
     }
     
     setupEventListeners() {
@@ -160,6 +197,7 @@ class AuthUI {
             this.logoutBtn.addEventListener('click', () => this.logout());
         }
     }
+    
     
     async login(userData) {
         // Сохраняем базовые данные
@@ -214,7 +252,26 @@ class AuthUI {
     getCurrentUser() {
         return this.getUserData();
     }
-}
+
+    hideDeleteButtons() {
+    const userData = this.getUserData();
+    const isAdmin = userData && (userData.roleNumber === 0 || userData.role === 'Администратор');
+        
+        // Если админ - показываем все кнопки удаления
+        if (isAdmin) {
+            document.querySelectorAll('.btn-danger[title="Удалить"]').forEach(btn => {
+                btn.style.display = 'inline-block';
+            });
+            return;
+        }
+        
+        // Если не админ - прячем все кнопки удаления
+        document.querySelectorAll('.btn-danger[title="Удалить"]').forEach(btn => {
+            btn.style.display = 'none';
+        });
+    }
+}   
+
 
 window.addEventListener('DOMContentLoaded', () => {
     window.authUI = new AuthUI();
