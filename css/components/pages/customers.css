@@ -2,7 +2,7 @@
    СТРАНИЦА ЗАКАЗЧИКОВ
    ============================================ */
 
-.customers-container {
+.customers-page .customers-container {
     padding: 30px;
     min-height: calc(100vh - 60px);
     background: linear-gradient(135deg, #f5f7fa 0%, #eef2f6 100%);
@@ -13,7 +13,7 @@
    ЗАГОЛОВОК СТРАНИЦЫ
    ============================================ */
 
-.customers-header {
+.customers-page .customers-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,13 +25,13 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.header-title {
+.customers-page .header-title {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.title-icon {
+.customers-page .title-icon {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, #2c6b9e15, #3498db15);
@@ -41,29 +41,29 @@
     justify-content: center;
 }
 
-.title-icon i {
+.customers-page .title-icon i {
     font-size: 2rem;
     color: #2c6b9e;
 }
 
-.title-text h2 {
+.customers-page .title-text h2 {
     color: #1e2a3a;
     font-size: 1.8rem;
     font-weight: 600;
     margin: 0 0 5px 0;
 }
 
-.subtitle {
+.customers-page .subtitle {
     color: #64748b;
     font-size: 0.95rem;
 }
 
-.header-actions {
+.customers-page .header-actions {
     display: flex;
     gap: 12px;
 }
 
-.btn {
+.customers-page .btn {
     padding: 12px 24px;
     border-radius: 50px;
     font-size: 0.95rem;
@@ -76,24 +76,24 @@
     border: none;
 }
 
-.btn-primary {
+.customers-page .btn-primary {
     background: linear-gradient(135deg, #2c6b9e, #3498db);
     color: white;
     box-shadow: 0 8px 20px rgba(44, 107, 158, 0.2);
 }
 
-.btn-primary:hover {
+.customers-page .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 25px rgba(44, 107, 158, 0.3);
 }
 
-.btn-outline {
+.customers-page .btn-outline {
     background: white;
     color: #475569;
     border: 1px solid #e2e8f0;
 }
 
-.btn-outline:hover {
+.customers-page .btn-outline:hover {
     background: #f8fafc;
     border-color: #2c6b9e;
     color: #2c6b9e;
@@ -103,29 +103,25 @@
    ПАНЕЛЬ ФИЛЬТРАЦИИ
    ============================================ */
 
-/* ============================================
-   ПАНЕЛЬ ФИЛЬТРАЦИИ
-   ============================================ */
-
-.filter-panel {
+.customers-page .filter-panel {
     background: white;
     border-radius: 16px;
     padding: 20px 25px;
     margin-bottom: 25px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;  /* Изменил с flex-end на center */
+    align-items: center;
     gap: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
     border: 1px solid #eef2f6;
 }
 
-.filter-group {
+.customers-page .filter-group {
     flex: 1;
     min-width: 180px;
 }
 
-.filter-group label {
+.customers-page .filter-group label {
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
@@ -135,7 +131,7 @@
     letter-spacing: 0.3px;
 }
 
-.filter-group select {
+.customers-page .filter-group select {
     width: 100%;
     padding: 12px 15px;
     border: 2px solid #eef2f6;
@@ -153,7 +149,7 @@
     box-sizing: border-box;
 }
 
-.btn-reset {
+.customers-page .btn-reset {
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
     color: #64748b;
@@ -170,45 +166,28 @@
     height: 48px;
     min-width: 120px;
     box-sizing: border-box;
-    margin-top: 28px;  /* Оставляем отступ */
+    margin-top: 28px;
     transform: translateY(-5px);
 }
 
-.btn-reset:hover {
+.customers-page .btn-reset:hover {
     background: #fee2e2;
     border-color: #fecaca;
     color: #dc2626;
-}
-
-/* Для мобильных */
-@media (max-width: 1024px) {
-    .filter-panel {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .filter-group {
-        width: 100%;
-    }
-    
-    .btn-reset {
-        width: 100%;
-        margin-top: 0;  /* Убираем отступ на мобильных */
-    }
 }
 
 /* ============================================
    СТАТИСТИКА
    ============================================ */
 
-.stats-row {
+.customers-page .stats-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-bottom: 25px;
 }
 
-.stat-item {
+.customers-page .stat-item {
     background: white;
     border-radius: 16px;
     padding: 20px;
@@ -218,12 +197,12 @@
     transition: transform 0.3s ease;
 }
 
-.stat-item:hover {
+.customers-page .stat-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(44, 107, 158, 0.1);
 }
 
-.stat-value {
+.customers-page .stat-value {
     display: block;
     font-size: 2rem;
     font-weight: 700;
@@ -232,7 +211,7 @@
     margin-bottom: 5px;
 }
 
-.stat-label {
+.customers-page .stat-label {
     color: #64748b;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -243,7 +222,7 @@
    ТАБЛИЦА
    ============================================ */
 
-.table-container {
+.customers-page .table-container {
     background: white;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
@@ -251,7 +230,7 @@
     border: 1px solid #eef2f6;
 }
 
-.table-header {
+.customers-page .table-header {
     padding: 20px 25px;
     border-bottom: 1px solid #eef2f6;
     background: white;
@@ -262,18 +241,18 @@
     gap: 15px;
 }
 
-.search-section {
+.customers-page .search-section {
     flex: 1;
     min-width: 300px;
 }
 
-.search-box {
+.customers-page .search-box {
     position: relative;
     width: 100%;
     max-width: 400px;
 }
 
-.search-box i {
+.customers-page .search-box i {
     position: absolute;
     left: 16px;
     top: 50%;
@@ -283,7 +262,7 @@
     transition: color 0.3s;
 }
 
-.search-box input {
+.customers-page .search-box input {
     width: 100%;
     padding: 14px 16px 14px 48px;
     border: 2px solid #eef2f6;
@@ -294,18 +273,18 @@
     color: #1e2a3a;
 }
 
-.search-box input:focus {
+.customers-page .search-box input:focus {
     outline: none;
     border-color: #2c6b9e;
     background: white;
     box-shadow: 0 5px 15px rgba(44, 107, 158, 0.1);
 }
 
-.search-box input:focus + i {
+.customers-page .search-box input:focus + i {
     color: #2c6b9e;
 }
 
-.rows-info {
+.customers-page .rows-info {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -313,7 +292,7 @@
     font-size: 0.95rem;
 }
 
-.rows-info select {
+.customers-page .rows-info select {
     padding: 10px 15px;
     border: 2px solid #eef2f6;
     border-radius: 12px;
@@ -324,73 +303,82 @@
     transition: all 0.3s ease;
 }
 
-.rows-info select:hover {
+.customers-page .rows-info select:hover {
     border-color: #cbd5e1;
     background: white;
 }
 
-.rows-info select:focus {
+.customers-page .rows-info select:focus {
     outline: none;
     border-color: #2c6b9e;
 }
 
-.table-wrapper {
+.customers-page .table-wrapper {
     overflow-x: auto;
 }
 
-.data-table {
+.customers-page .data-table {
     width: 100%;
     border-collapse: collapse;
     min-width: 1000px;
 }
 
-.data-table thead {
-    background: #2c6b9e;
+.customers-page .data-table thead {
+    background: #0e3c61 !important;  /* принудительно применяем цвет */
 }
 
-.data-table th {
+.customers-page .data-table thead tr {
+    background: transparent;  /* убираем возможный фон у строки */
+}
+
+.customers-page .data-table th {
+    background: transparent;  /* убираем возможный фон у ячеек */
+    color: white;
+}
+
+.customers-page .data-table th {
     padding: 18px 20px;
     text-align: left;
-    color: white;
+    color: #ffffff;   
     font-weight: 600;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.data-table th i {
+.customers-page .data-table th i {
     margin-right: 8px;
     font-size: 1rem;
 }
 
-.data-table tbody tr {
+.customers-page .data-table tbody tr {
     border-bottom: 1px solid #eef2f6;
     transition: all 0.3s ease;
 }
 
-.data-table tbody tr:hover {
+.customers-page .data-table tbody tr:hover {
     background: linear-gradient(90deg, #f8fafc, #ffffff);
 }
 
-.data-table td {
+.customers-page .data-table td {
     padding: 16px 20px;
     color: #1e293b;
     font-size: 0.95rem;
 }
 
-.data-table td:first-child {
+.customers-page .data-table td:first-child {
     font-weight: 600;
     color: #2c6b9e;
     font-family: 'Courier New', monospace;
 }
 
-.data-table td:last-child {
+.customers-page .data-table td:last-child {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
-.btn-icon {
+.customers-page .btn-icon {
     width: 36px;
     height: 36px;
     border-radius: 10px;
@@ -404,24 +392,24 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.btn-icon.btn-edit {
+.customers-page .btn-icon.btn-edit {
     color: #2c6b9e;
     border: 1px solid #e1e9f0;
 }
 
-.btn-icon.btn-edit:hover {
+.customers-page .btn-icon.btn-edit:hover {
     background: #2c6b9e;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(44, 107, 158, 0.3);
 }
 
-.btn-icon.btn-delete {
+.customers-page .btn-icon.btn-delete {
     color: #e74c3c;
     border: 1px solid #fde5e3;
 }
 
-.btn-icon.btn-delete:hover {
+.customers-page .btn-icon.btn-delete:hover {
     background: #e74c3c;
     color: white;
     transform: translateY(-2px);
@@ -432,7 +420,7 @@
    ПАГИНАЦИЯ
    ============================================ */
 
-.table-footer {
+.customers-page .table-footer {
     padding: 20px 25px;
     border-top: 1px solid #eef2f6;
     display: flex;
@@ -443,18 +431,18 @@
     gap: 15px;
 }
 
-.pagination-info {
+.customers-page .pagination-info {
     color: #64748b;
     font-size: 0.95rem;
 }
 
-.pagination {
+.customers-page .pagination {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.page-btn {
+.customers-page .page-btn {
     width: 40px;
     height: 40px;
     border-radius: 10px;
@@ -468,23 +456,23 @@
     color: #475569;
 }
 
-.page-btn:hover:not(:disabled) {
+.customers-page .page-btn:hover:not(:disabled) {
     border-color: #2c6b9e;
     color: #2c6b9e;
     background: #f0f7ff;
 }
 
-.page-btn:disabled {
+.customers-page .page-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.page-numbers {
+.customers-page .page-numbers {
     display: flex;
     gap: 5px;
 }
 
-.page-number {
+.customers-page .page-number {
     min-width: 40px;
     height: 40px;
     border-radius: 10px;
@@ -499,19 +487,19 @@
     font-size: 0.95rem;
 }
 
-.page-number:hover {
+.customers-page .page-number:hover {
     border-color: #2c6b9e;
     color: #2c6b9e;
     background: #f0f7ff;
 }
 
-.page-number.active {
+.customers-page .page-number.active {
     background: #2c6b9e;
     border-color: #2c6b9e;
     color: white;
 }
 
-.pagination-info-mobile {
+.customers-page .pagination-info-mobile {
     display: none;
     color: #64748b;
     font-size: 0.95rem;
@@ -521,13 +509,13 @@
    СОСТОЯНИЯ ЗАГРУЗКИ
    ============================================ */
 
-.loading {
+.customers-page .loading {
     text-align: center;
     padding: 60px !important;
     color: #64748b;
 }
 
-.loading .spinner {
+.customers-page .loading .spinner {
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -542,14 +530,14 @@
     to { transform: rotate(360deg); }
 }
 
-.no-data {
+.customers-page .no-data {
     text-align: center;
     padding: 60px !important;
     color: #94a3b8;
     font-size: 1.1rem;
 }
 
-.error-message {
+.customers-page .error-message {
     text-align: center;
     padding: 60px !important;
     color: #e74c3c;
@@ -561,92 +549,94 @@
    ============================================ */
 
 @media (max-width: 1024px) {
-    .customers-container {
+    .customers-page .customers-container {
         padding: 20px;
     }
     
-    .stats-row {
+    .customers-page .stats-row {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .filter-panel {
+    .customers-page .filter-panel {
         flex-direction: column;
         align-items: stretch;
     }
     
-    .filter-group {
+    .customers-page .filter-group {
         width: 100%;
     }
     
-    .btn-reset {
+    .customers-page .btn-reset {
         width: 100%;
         justify-content: center;
+        margin-top: 0;
+        transform: none;
     }
 }
 
 @media (max-width: 768px) {
-    .customers-header {
+    .customers-page .customers-header {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
         padding: 20px;
     }
     
-    .header-title {
+    .customers-page .header-title {
         flex-direction: column;
         text-align: center;
     }
     
-    .header-actions {
+    .customers-page .header-actions {
         flex-direction: column;
     }
     
-    .table-header {
+    .customers-page .table-header {
         flex-direction: column;
         align-items: stretch;
     }
     
-    .search-section {
+    .customers-page .search-section {
         max-width: 100%;
     }
     
-    .search-box {
+    .customers-page .search-box {
         max-width: 100%;
     }
     
-    .pagination-info {
+    .customers-page .pagination-info {
         display: none;
     }
     
-    .pagination-info-mobile {
+    .customers-page .pagination-info-mobile {
         display: block;
     }
     
-    .table-footer {
+    .customers-page .table-footer {
         flex-direction: column;
         text-align: center;
     }
 }
 
 @media (max-width: 480px) {
-    .customers-container {
+    .customers-page .customers-container {
         padding: 15px;
     }
     
-    .stats-row {
+    .customers-page .stats-row {
         grid-template-columns: 1fr;
     }
     
-    .data-table td {
+    .customers-page .data-table td {
         padding: 12px 15px;
     }
     
-    .btn-icon {
+    .customers-page .btn-icon {
         width: 32px;
         height: 32px;
     }
     
-    .pagination {
+    .customers-page .pagination {
         flex-wrap: wrap;
         justify-content: center;
     }
